@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /youtest
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/youtest?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+    username: root
+    password: 1qaz2wsx
+    driver-class-name: com.mysql.cj.jdbc.Driver
