@@ -1,7 +1,7 @@
 package com.lilith.youtest.service.impl;
 
 import com.lilith.youtest.entity.User;
-import com.lilith.youtest.dao.UserMapper;
+import com.lilith.youtest.mapper.UserMapper;
 import com.lilith.youtest.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

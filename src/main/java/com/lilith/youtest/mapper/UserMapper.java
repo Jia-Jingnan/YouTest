@@ -1,4 +1,4 @@
-package com.lilith.youtest.dao;
+package com.lilith.youtest.mapper;
 
 import com.lilith.youtest.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
