@@ -48,7 +48,7 @@ public class CodeGenerator {
         // pc.setModuleName("模块名");
         pc.setController("controller");
         pc.setService("service");
-        pc.setMapper("dao");
+        pc.setMapper("mapper");
 
         pc.setEntity("entity");
         mpg.setPackageInfo(pc);
