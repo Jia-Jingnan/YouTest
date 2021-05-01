@@ -74,9 +74,9 @@ public class UserController {
             // 验证逻辑
             subject.login(token);
             // 将sessionid返回
-            String sessonId = (String) SecurityUtils.getSubject().getSession().getId();
-
-            commonResult = new CommonResult("1",sessonId,"登陆成功");
+            String sessionId = (String) SecurityUtils.getSubject().getSession().getId();
+            User loginUser = (User) subject.getPrincipal();
+            commonResult = new CommonResult("1",loginUser.getId(),sessionId);
         } catch (AuthenticationException e){
             if (e instanceof UnknownAccountException){
                 commonResult = new CommonResult("0","用户名错误");
