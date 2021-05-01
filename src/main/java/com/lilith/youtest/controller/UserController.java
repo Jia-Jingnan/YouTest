@@ -15,6 +15,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+
 
 /**
  * <p>
@@ -87,5 +89,15 @@ public class UserController {
         }
         return commonResult;
 
+    }
+
+    @ApiOperation(value = "登出方法",httpMethod = "GET")
+    @GetMapping("logout")
+    public CommonResult logout(){
+        CommonResult commonResult = null;
+        // 从shiro中退出登陆
+        SecurityUtils.getSubject().logout();
+        commonResult = new CommonResult("1","帐号未登陆");
+        return commonResult;
     }
 }
