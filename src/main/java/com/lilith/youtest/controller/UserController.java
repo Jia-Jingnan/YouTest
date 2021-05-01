@@ -100,4 +100,13 @@ public class UserController {
         commonResult = new CommonResult("1","帐号未登陆");
         return commonResult;
     }
+
+    @ApiOperation(value = "未授权方法",httpMethod = "GET")
+    @GetMapping("unauth")
+    public CommonResult unauth(){
+        CommonResult commonResult = null;
+        commonResult = new CommonResult("1","帐号未登陆");
+        return commonResult;
+    }
+
 }
