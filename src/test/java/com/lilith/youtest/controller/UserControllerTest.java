@@ -34,11 +34,8 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     public void find() {
-        User user = new User();
-        user.setUsername("001");
-        user.setPassword("12345");
-        user.setRegtime(new Date());
-        CommonResult commonResult = userController.find(user);
+        String username = "001";
+        CommonResult commonResult = userController.find(username);
         assertEquals("1",commonResult.getStatus());
 
     }
