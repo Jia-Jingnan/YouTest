@@ -44,12 +44,19 @@ public class UserController {
     // 帐号查重方法
     @ApiOperation(value = "帐号查重方法", httpMethod = "GET")
     @GetMapping("find")
-    public CommonResult find(User user){
+    public CommonResult find(String username){
+        CommonResult commonResult = null;
 
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.setEntity(user);
-        queryWrapper.eq("username",user.getUsername());
-        userService.getOne(queryWrapper);
-        return new CommonResult("1","存在重复帐号");
+        queryWrapper.setEntity(username);
+        // 设置查询条件，username列等于传入的username参数
+        queryWrapper.eq("username",username);
+        User user = userService.getOne(queryWrapper);
+        if (user == null){
+            commonResult = new CommonResult("1","帐号不存在");
+        } else {
+            commonResult = new CommonResult("0","帐号已存在");
+        }
+        return commonResult;
     }
 }
