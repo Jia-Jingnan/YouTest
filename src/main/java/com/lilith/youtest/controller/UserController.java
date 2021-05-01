@@ -29,7 +29,7 @@ import java.awt.*;
 @Api(tags = "用户模块")
 @RestController
 @RequestMapping("/user")
-@CrossOrigin
+//@CrossOrigin
 public class UserController {
 
     @Autowired
