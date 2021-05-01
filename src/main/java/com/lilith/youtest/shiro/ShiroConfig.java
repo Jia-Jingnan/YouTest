@@ -32,7 +32,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/user/find", "anon");
         filterChainDefinitionMap.put("/user/register", "anon");
 
-        // 放行
+        // 放行，anno表示放行
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/swagger/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");

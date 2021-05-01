@@ -1,7 +1,10 @@
 package com.lilith.youtest.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -37,6 +40,7 @@ public class User implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "注册时间")
     private Date regtime;
 

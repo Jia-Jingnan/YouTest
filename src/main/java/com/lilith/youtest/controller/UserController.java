@@ -35,7 +35,7 @@ public class UserController {
     public CommonResult register(User user){
 
         // 调用业务层方法，插入到数据库中
-        user.setRegtime(new Date());
+        // user.setRegtime(new Date());
         userService.save(user);
         return new CommonResult("1","注册成功");
     }
