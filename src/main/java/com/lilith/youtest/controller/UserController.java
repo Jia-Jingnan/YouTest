@@ -50,6 +50,6 @@ public class UserController {
         queryWrapper.setEntity(user);
         queryWrapper.eq("username",user.getUsername());
         userService.getOne(queryWrapper);
-        return new CommonResult();
+        return new CommonResult("1","存在重复帐号");
     }
 }
