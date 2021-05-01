@@ -15,7 +15,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 
 /**
  * <p>
@@ -74,7 +73,10 @@ public class UserController {
             Subject subject = SecurityUtils.getSubject();
             // 验证逻辑
             subject.login(token);
-            commonResult = new CommonResult("1","登陆成功");
+            // 将sessionid返回
+            String sessonId = (String) SecurityUtils.getSubject().getSession().getId();
+
+            commonResult = new CommonResult("1",sessonId,"登陆成功");
         } catch (AuthenticationException e){
             if (e instanceof UnknownAccountException){
                 commonResult = new CommonResult("0","用户名错误");

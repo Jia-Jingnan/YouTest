@@ -33,7 +33,7 @@ public class MyRealm extends AuthorizingRealm {
         User dbUser = userService.getOne(queryWrapper);
 
         if (dbUser != null) {
-//            if (adUser.getPassword().equals(token.getCredentials())){
+//            if (dbUser.getPassword().equals(token.getCredentials())){
 //            }
             System.out.println(dbUser.getId());
             return new SimpleAuthenticationInfo(dbUser, dbUser.getPassword(), getName());
