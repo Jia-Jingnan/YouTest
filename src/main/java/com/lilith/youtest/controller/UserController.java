@@ -7,6 +7,11 @@ import com.lilith.youtest.entity.User;
 import com.lilith.youtest.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,5 +62,28 @@ public class UserController {
             commonResult = new CommonResult("0","帐号已存在");
         }
         return commonResult;
+    }
+
+    @ApiOperation(value = "登陆方法",httpMethod = "POST")
+    @PostMapping("login")
+    public CommonResult login(User user){
+        CommonResult commonResult = null;
+        try {
+            UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
+            // 通过shiro进行安全验证
+            Subject subject = SecurityUtils.getSubject();
+            // 验证逻辑
+            subject.login(token);
+            commonResult = new CommonResult("1","登陆成功");
+        } catch (AuthenticationException e){
+            if (e instanceof UnknownAccountException){
+                commonResult = new CommonResult("0","用户名错误");
+            } else {
+                commonResult = new CommonResult("0","密码错误");
+            }
+            e.printStackTrace();
+        }
+        return commonResult;
+
     }
 }
