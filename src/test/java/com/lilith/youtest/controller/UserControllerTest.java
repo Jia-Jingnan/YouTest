@@ -37,6 +37,5 @@ public class UserControllerTest extends BaseTest {
         String username = "001";
         CommonResult commonResult = userController.find(username);
         assertEquals("1",commonResult.getStatus());
-
     }
 }

@@ -48,7 +48,6 @@ public class UserController {
         CommonResult commonResult = null;
 
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.setEntity(username);
         // 设置查询条件，username列等于传入的username参数
         queryWrapper.eq("username",username);
         User user = userService.getOne(queryWrapper);
