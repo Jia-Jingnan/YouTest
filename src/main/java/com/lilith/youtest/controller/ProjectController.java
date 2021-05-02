@@ -30,6 +30,18 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @ApiOperation(value = "根据ID更新项目", httpMethod = "PUT")
+    @PutMapping("/{projectId}")
+    public CommonResult updateById(@PathVariable("projectId") Integer projectId,Project project){
+        CommonResult commonResult = null;
+        project.setId(projectId);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        project.setCreateUser(user.getId());
+        projectService.updateById(project);
+        commonResult = new CommonResult("1",project,"保存成功");
+        return commonResult;
+    }
+
     @ApiOperation(value = "根据ID查询项目", httpMethod = "GET")
     @GetMapping("/{projectId}")
     public CommonResult getById(@PathVariable("projectId") Integer projectId){
