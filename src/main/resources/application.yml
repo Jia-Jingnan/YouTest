@@ -8,3 +8,8 @@ spring:
     username: root
     password: 1qaz2wsx
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: info
+    com.lilith.youtest.mapper: trace
