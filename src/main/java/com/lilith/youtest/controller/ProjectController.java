@@ -30,6 +30,10 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    //todo 根据ID删除项目
+
+    //todo 查询项目总数count，根据用户ID查询项目数
+
     @ApiOperation(value = "根据ID更新项目", httpMethod = "PUT")
     @PutMapping("/{projectId}")
     public CommonResult updateById(@PathVariable("projectId") Integer projectId,Project project){
