@@ -2,6 +2,9 @@ package com.lilith.youtest.service;
 
 import com.lilith.youtest.entity.ApiClassification;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lilith.youtest.vo.ApiClassificationVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ApiClassificationService extends IService<ApiClassification> {
 
+    List<ApiClassificationVO> getWithApi(Integer projectId);
 }

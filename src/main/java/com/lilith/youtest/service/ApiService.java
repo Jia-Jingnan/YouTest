@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-05-03
  */
 public interface ApiService extends IService<Api> {
-
 }
