@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ApiClassificationMapper extends BaseMapper<ApiClassification> {
 
+    // 两表 延迟加载 先查询分类信息，
 }
