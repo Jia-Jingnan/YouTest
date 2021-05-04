@@ -42,7 +42,6 @@
                     </li>
                 </ul>
             </div>
-
         </div>
     </div>
     <div class="nav-interlist">
@@ -110,7 +109,7 @@
         //更新项目
         $('.btn_save').click(function(){
             let apiClassificationId=sessionStorage.getItem("apiClassificationId");
-            let url=lemon.config.global.adminUrl+"/apiClassification/updateApiClassification";
+            let url=youtest.config.global.adminUrl+"/apiClassification/updateApiClassification";
             let sessionId=$.cookie("sessionId");
 
             //console.log($('#myform2').serialize())
@@ -123,9 +122,9 @@
                 success:function(ret){
                     console.log(ret)
                     if(ret.status=="1"&&ret.message=="更新成功"){
-                        location.href=lemon.config.global.rootUrl+"/index.html"
+                        location.href=youtest.config.global.rootUrl+"/index.html"
                     }else{
-                        location.href=lemon.config.global.rootUrl+"/login.html"
+                        location.href=youtest.config.global.rootUrl+"/login.html"
                     }
                 }
             });
@@ -149,7 +148,7 @@
         //进入页面直接渲染
         created () {
             let apiClassificationId=sessionStorage.getItem("apiClassificationId");
-            let url=lemon.config.global.adminUrl+"/apiClassification/"+apiClassificationId;
+            let url=youtest.config.global.adminUrl+"/apiClassification/"+apiClassificationId;
             
             axios.get(
                 url,{
@@ -161,7 +160,7 @@
                   this.info=result.data
                   // console.log(result.data)
                 }else{
-                    location.href=lemon.config.global.rootUrl+"/login.html"
+                    location.href=youtest.config.global.rootUrl+"/login.html"
                 }
             })
         }

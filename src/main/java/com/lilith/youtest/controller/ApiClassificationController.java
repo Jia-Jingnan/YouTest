@@ -36,8 +36,8 @@ public class ApiClassificationController {
     //todo 编辑分类方法
 
     @ApiOperation(value = "删除分类",httpMethod = "DELETE")
-    @DeleteMapping("/{apiClassification}")
-    public CommonResult delete(@PathVariable("id") Integer apiClassificationId){
+    @DeleteMapping("/{apiClassificationId}")
+    public CommonResult delete(@PathVariable("apiClassificationId") Integer apiClassificationId){
         CommonResult commonResult = null;
         if (apiClassificationId != null){
             apiClassificationService.removeById(apiClassificationId);
@@ -47,7 +47,6 @@ public class ApiClassificationController {
             commonResult = new CommonResult("0","分类ID为空");
             return commonResult;
         }
-
 
     }
 
