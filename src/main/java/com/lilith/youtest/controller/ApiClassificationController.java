@@ -2,12 +2,14 @@ package com.lilith.youtest.controller;
 
 
 import com.lilith.youtest.common.CommonResult;
+import com.lilith.youtest.entity.ApiClassification;
 import com.lilith.youtest.service.ApiClassificationService;
 import com.lilith.youtest.vo.ApiClassificationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,19 @@ public class ApiClassificationController {
 
     @Autowired
     private ApiClassificationService apiClassificationService;
+
+    //todo 添加接口分类，单表操作
+    @ApiOperation(value = "增加接口分类", httpMethod = "POST")
+    @PostMapping("add")
+    public CommonResult add(ApiClassification apiClassification,Integer projectId){
+        if (projectId != null){
+            apiClassification.setProjectId(projectId);
+            apiClassificationService.save(apiClassification);
+            return new CommonResult("1",apiClassification,"添加成功");
+        } else {
+            return new CommonResult("0","缺少项目ID");
+        }
+    }
 
     @ApiOperation(value = "查询所有分类下的接口", httpMethod = "GET")
     @GetMapping("/toIndex")
