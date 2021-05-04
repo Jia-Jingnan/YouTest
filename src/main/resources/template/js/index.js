@@ -38,7 +38,7 @@ $(function() {
 							//console.log($('#addClassification').serialize())
 							$.ajax({
 								headers:{"Authorization":$.cookie("sessionId")},
-								url : lemon.config.global.adminUrl
+								url : youtest.config.global.adminUrl
 										+ "/apiClassification/"
 										+ projectId,
 								data : $form.serialize(),
@@ -50,7 +50,7 @@ $(function() {
 										dialog.close();
 										window.location.reload();
 									}else if(ret.status=="1"&&ret.message=="账号未登录"){
-										location.href=lemon.config.global.rootUrl+"/login.html"
+										location.href=youtest.config.global.rootUrl+"/login.html"
 									}else{
 										dialog.close();
 										alert("添加失败！")
@@ -89,7 +89,7 @@ $(function() {
 								return;
 							$.ajax({
 								headers:{"Authorization":$.cookie("sessionId")},
-								url : lemon.config.global.adminUrl
+								url : youtest.config.global.adminUrl
 										+ "/suite/add",
 								data : $form.serialize()+"&projectId="+projectId,
 								type : 'post',
@@ -100,7 +100,7 @@ $(function() {
 										dialog.close();
 										window.location.reload();
 									}else if(ret.status==1&&ret.data!="账号未登录"){
-										location.href=lemon.config.global.rootUrl+"/login.html"
+										location.href=youtest.config.global.rootUrl+"/login.html"
 									}else{
 										dialog.close();
 										alert("添加失败！")
@@ -112,8 +112,4 @@ $(function() {
 					}
 				})
 			});
-
-			
-	
-
 });

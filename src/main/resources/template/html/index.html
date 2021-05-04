@@ -79,7 +79,7 @@
                             </a>
                         </div>
                     </li>
-                     <li class=""  v-for="apiClassification in info">  
+                    <li class=""  v-for="apiClassification in info">
                         <div class="menu-interlist">
                             <!--  -->
                             <a href="apiList.html" target="rightIframe" @click="goto2(apiClassification.id)">
@@ -106,7 +106,6 @@
                            
                         </ul>
                     </li>
-                   
                 </ul>
             </div>
         </div>
@@ -170,7 +169,7 @@
             delApiClassification(apiClassificationId){
                 let url=youtest.config.global.adminUrl+"/apiClassification/deleteApiClassification";
            // alert($.cookie("sessionId"))
-                let sessionId=$.cookie("sessionId")
+                let sessionId=$.cookie("sessionId");
                 if(!confirm('您是否确认删除此分类！')){
                     return
                 }
@@ -183,7 +182,7 @@
                 if(result.status=="1"&&result.message=="删除成功"){
                   window.location.reload();//刷新页面
                 }else{
-                    location.href=youtest.config.global.rootUrl+"/login.html"
+                    location.href=youtest.config.global.htmlUrl+"/login.html"
                 }
             })   
             },
@@ -191,7 +190,7 @@
                 //将项目id和host存到浏览器,方便获取
                 sessionStorage.setItem("apiClassificationId",id);
                 //跳转到index.html界面
-                location.href=youtest.config.global.rootUrl+"/apiClassificationSet.html"
+                location.href=youtest.config.global.htmlUrl+"/apiClassificationSet.html"
             },
             goto2(id){
                 sessionStorage.setItem("apiClassificationId",id);
@@ -205,20 +204,20 @@
         },
         //进入页面直接渲染
         created () {
-            sessionStorage.removeItem("suiteId") //为了切换时默认选择全部 后续优化
+            // sessionStorage.removeItem("suiteId"); //为了切换时默认选择全部 后续优化
             let url=youtest.config.global.adminUrl+"/apiClassification/toIndex";
             let projectId=sessionStorage.getItem("projectId");
             axios.get(
                 url,{
                  headers:{"Authorization":$.cookie("sessionId")},
-                 params:{"projectId":projectId,"tab":"1"}    
+                 params:{"projectId":projectId,"tab":1}
             }).then(response=>{
                 let result=response.data;
                 if(result.status=="1"&&result.data!=""&&result.data!=null){
                    this.info=result.data
                    //console.log(result.data)
                 }else if(result.status=="1"&&result.message=="账号未登录"){
-                    location.href=youtest.config.global.rootUrl+"/login.html"
+                    location.href=youtest.config.global.htmlUrl+"/login.html"
                 }
             })
         }
