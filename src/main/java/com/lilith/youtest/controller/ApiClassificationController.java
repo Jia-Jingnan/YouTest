@@ -8,13 +8,10 @@ import com.lilith.youtest.vo.ApiClassificationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.transform.Result;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,12 +32,15 @@ public class ApiClassificationController {
 
     //todo 添加接口分类，单表操作
     @ApiOperation(value = "增加接口分类", httpMethod = "POST")
-    @PostMapping("add")
-    public CommonResult add(ApiClassification apiClassification,Integer projectId){
+    @PostMapping("/{projectId}")
+    public CommonResult add(String name,@PathVariable("projectId") Integer projectId){
         if (projectId != null){
+            ApiClassification apiClassification = new ApiClassification();
+            apiClassification.setName(name);
             apiClassification.setProjectId(projectId);
+            apiClassification.setCreateTime(new Date());
             apiClassificationService.save(apiClassification);
-            return new CommonResult("1",apiClassification,"添加成功");
+            return new CommonResult("1",apiClassification,"新增成功");
         } else {
             return new CommonResult("0","缺少项目ID");
         }
