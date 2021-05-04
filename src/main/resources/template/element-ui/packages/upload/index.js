@@ -1,4 +1,4 @@
-import Upload from './src';
+import Upload from './src/index';
 
 /* istanbul ignore next */
 Upload.install = function(Vue) {

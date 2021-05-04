@@ -1,5 +1,5 @@
 import directive from './src/directive';
-import service from './src/index';
+import service from './src';
 
 export default {
   install(Vue) {

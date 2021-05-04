@@ -73,7 +73,7 @@
                 <ul class="type_menu">
                     <li class="active">
                         <div class="menu-interlist">
-                            <a href="../html/apiList.html" target="rightIframe"   @click="goAll()">
+                            <a href="apiList.html" target="rightIframe" @click="goAll()">
                                 <i class="icon-file"></i>
                                 <span>全部接口</span>
                             </a>
@@ -82,7 +82,7 @@
                      <li class=""  v-for="apiClassification in info">  
                         <div class="menu-interlist">
                             <!--  -->
-                            <a  href="../html/apiList.html" target="rightIframe"  @click="goto2(apiClassification.id)">
+                            <a href="apiList.html" target="rightIframe" @click="goto2(apiClassification.id)">
                                 <i class="icon-file"></i>
                                 <span>{{apiClassification.name}}</span>
                                 <div class="hanmenu-interlist active">
@@ -96,7 +96,7 @@
                         <ul class="tmenu-interlist">  
                         	<!-- 加载此分类下的所有接口  -->
                             <li class="" v-for="api in apiClassification.apis" >
-                                <a  href="../html/apiView.html" target="rightIframe" @click="goto3(api.id)">
+                                <a href="apiView.html" target="rightIframe" @click="goto3(api.id)">
                                    	{{api.name}}
                                     <div class="hantmenu-interlist active ">
                                         <i class="icon-delete "></i>
@@ -111,7 +111,7 @@
             </div>
         </div>
         <!-- loadFrame(this); -->
-       	<iframe class="rightIframe f-l" name="rightIframe" src="../html/apiList.html" onload="" scrolling="yes" style="height: 297px;" frameborder="0"></iframe>
+       	<iframe class="rightIframe f-l" name="rightIframe" src="apiList.html" onload="" scrolling="yes" style="height: 297px;" frameborder="0"></iframe>
     </div>
     <!-- 添加分类窗口 -->
     <form id="addClassification">

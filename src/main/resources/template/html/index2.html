@@ -75,7 +75,7 @@
                 <ul class="type_menu">
                     <li class="active">
                         <div class="menu-interlist">
-                            <a href="../html/caseList.html" target="rightIframe"   @click="goAll()">
+                            <a href="caseList.html" target="rightIframe" @click="goAll()">
                                 <i class="icon-file"></i>
                                 <span>全部案例</span>
                             </a>
@@ -83,7 +83,7 @@
                     </li>
                     <li  v-for="suite in info">
                         <div class="menu-interlist">
-                            <a href="../html/caseList.html" target="rightIframe" @Click="goto(suite.id)">
+                            <a href="caseList.html" target="rightIframe" @Click="goto(suite.id)">
                                 <i class="icon-file"></i>
                                 <span>{{suite.name}}</span>
                                 <div class="hanmenu-interlist active">
@@ -97,7 +97,7 @@
                         	<ul class="tmenu-interlist">
                         		<!-- 加载此套件下的所有测试用例 -->
 	                            <li class="" v-for="cases in  suite.cases">
-	                                <a href="../html/caseEdit.html" target="rightIframe" @Click="goCase(cases.id)">
+	                                <a href="caseEdit.html" target="rightIframe" @Click="goCase(cases.id)">
 	                                    	{{cases.name}}
 	                                    <div class="hantmenu-interlist active">
 	                                        <i class="icon-copy"></i>
@@ -143,7 +143,7 @@
             </div>
         </div>
         <!-- loadFrame(this); -->
-        <iframe class="rightIframe f-l" name="rightIframe" src="../html/caseList.html" onload="" scrolling="yes" frameborder="0"></iframe>
+        <iframe class="rightIframe f-l" name="rightIframe" src="caseList.html" onload="" scrolling="yes" frameborder="0"></iframe>
     </div>
     <!-- 测试集合弹窗 -->
     <form id="addSuite">
