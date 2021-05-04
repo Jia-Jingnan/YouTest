@@ -10,7 +10,7 @@ $(function(){
 	$('.data-testass').on('click','.btn-testrep',function(){
 		var caseId = $(this).parent().parent().find("[name='id']").val();
 		$.ajax({
-			url:lemon.config.global.adminUrl+"/testReport/findCaseRunResult",
+			url:youtest.config.global.adminUrl+"/testReport/findCaseRunResult",
 			headers:{"Authorization":$.cookie("sessionId")},
 			data:{"caseId":caseId},
 			dataType:'json',
@@ -110,7 +110,7 @@ $(function(){
 		});
 		//后台执行套件
 		$.ajax({
-			url:lemon.config.global.adminUrl+"/testReport/runTest",
+			url:youtest.config.global.adminUrl+"/testReport/runTest",
 			headers:{"Authorization":$.cookie("sessionId")},
 			data:{"suiteId":suiteId,"projectId":projectId},
 			type:'post',
@@ -144,7 +144,7 @@ $(function(){
 	});
 	
 	$("[name='caseEditHref']").click(function(){
-		var baseUrl = lemon.config.global.rootUrl;
+		var baseUrl = youtest.config.global.rootUrl;
 		var menuFindurl = baseUrl+"/index/findCaseSelectedMenu";
 		var caseId = $(this).parent().parent().find("[name='caseId']").val();
 		var data = {"caseId":caseId};
@@ -156,7 +156,7 @@ $(function(){
 	});
 	
 	$("[name='apiUrlHref']").click(function(){
-		var baseUrl = lemon.config.global.rootUrl;
+		var baseUrl = youtest.config.global.rootUrl;
 		//获取菜单的接口
 		var menuFindurl = baseUrl+"/index/findApiSelectedMenu";
 		var apiId = $("[name='apiId']").val();

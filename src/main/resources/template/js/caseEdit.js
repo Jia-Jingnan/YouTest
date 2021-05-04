@@ -1,7 +1,7 @@
 $(function(){
 	$("#btnUApi").click(function(){
 		$.ajax({
-			url:lemon.config.global.adminUrl+"/cases/updateCases",
+			url:youtest.config.global.adminUrl+"/cases/updateCases",
 			headers:{"Authorization":$.cookie("sessionId")},
 			data:$("[name='caseForm']").serialize(),
 			type:'post',
@@ -13,7 +13,7 @@ $(function(){
 						//window.parent.location.reload();//刷新父页面
 						window.location.reload();//刷新当前页面
 					}else if(ret.status=="1"&&ret.message=="账号未登录"){
-						location.href=lemon.config.global.rootUrl+"/login.html"
+						location.href=youtest.config.global.rootUrl+"/login.html"
 					}
 				}
 			}
@@ -21,7 +21,7 @@ $(function(){
 	});
 	$(".btn-send").click(function(){
 		$.ajax({
-			url:lemon.config.global.adminUrl+"/api/apiRun",
+			url:youtest.config.global.adminUrl+"/api/apiRun",
 			headers:{"Authorization":$.cookie("sessionId")},
 			data:$("[name='caseForm']").serialize(),
 			type:'post',
@@ -37,7 +37,7 @@ $(function(){
 					$("[name='responseData']").html("<pre  class='pre-scrollable' style='color:"+colorStr+"'>"+JSON.stringify(JSON.parse(ret.data.body), null, 2)+"</pre>");
 
 				}else if(ret.status=="1"&&ret.message=="账号未登录"){
-					location.href=lemon.config.global.rootUrl+"/login.html"
+					location.href=youtest.config.global.rootUrl+"/login.html"
 				}
 				else{
 					alert(ret.message);
@@ -66,7 +66,7 @@ $(function(){
 			$(".reslist-interrun").hide();
 			//$(".dataTest-interrun").hide();
 			//找到表中配置的断言规则,用于数据回显
-			// var url = lemon.config.global.rootUrl+"/suite/findCaseTestRule";
+			// var url = youtest.config.global.rootUrl+"/suite/findCaseTestRule";
 			// var caseId = $("[name='caseId']").val();
 			// $.post(url,{"caseId":caseId},function(ret){
 			// 	if(ret.status=="1"){
@@ -140,7 +140,7 @@ $(function(){
 	});
 	
 	$("[name='relatedApi']").click(function(){
-		var baseUrl = lemon.config.global.rootUrl;
+		var baseUrl = youtest.config.global.rootUrl;
 		//获取菜单的接口
 		var menuFindurl = baseUrl+"/index/findApiSelectedMenu";
 		var apiId = $("[name='apiId']").val();

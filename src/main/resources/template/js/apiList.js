@@ -17,7 +17,7 @@ function interDataPaging(data,page){
 }
 
 function showApi(apiId){
-	// var baseUrl = lemon.config.global.rootUrl;
+	// var baseUrl = youtest.config.global.rootUrl;
 	// var menuFindurl = baseUrl+"/index/findApiSelectedMenu?apiId="+id;
 	// var data = {"apiId":id};
 	// var turn2Page = baseUrl+"/api/toApiView?apiId="+id;
@@ -30,7 +30,7 @@ function showApi(apiId){
 function pagingDataBuild(pagedata){
 	var status = 1;
 	var html = '';
-	var baseUrl = lemon.config.global.rootUrl;
+	var baseUrl = youtest.config.global.rootUrl;
 	for(var i=0;i<pagedata.length;i++){
 		html += '<li><ul class="clearfix">';
 
@@ -82,11 +82,11 @@ $(function(){
 	var classdDescription="";
 	//获取数据接口
 	if(projectId!=""){
-		listUrl = lemon.config.global.adminUrl+"/api/showApiListByProject?projectId="+projectId;
+		listUrl = youtest.config.global.adminUrl+"/api/showApiListByProject?projectId="+projectId;
 		
 	}
 	 if(apiClassificationId!=''&&apiClassificationId!=null){
-		listUrl = lemon.config.global.adminUrl+"/api/showApiListByClassificationId?apiClassificationId="+apiClassificationId;
+		listUrl = youtest.config.global.adminUrl+"/api/showApiListByClassificationId?apiClassificationId="+apiClassificationId;
 	}
 	$.ajax({
 		headers:{"Authorization":sessionId},//将sessionId存放到头部信息中 key要与后端定义头部信息一致
@@ -105,7 +105,7 @@ $(function(){
 			}else if(ret.data.length==0){
 				$.ajax({
 					headers:{"Authorization":sessionId},
-					url:lemon.config.global.adminUrl+"/apiClassification/"+apiClassificationId,
+					url:youtest.config.global.adminUrl+"/apiClassification/"+apiClassificationId,
 					type:"GET",
 					success:function(ret2){
 						if(ret2.status=="1"&&ret2.data!=null){
@@ -113,7 +113,7 @@ $(function(){
 							$(".input-com").val(ret2.data.description);
 						}
 						else if(ret2.status=="1"&&ret2.message=="账号未登录"){
-							location.href=lemon.config.global.rootUrl+"/login.html"
+							location.href=youtest.config.global.rootUrl+"/login.html"
 						}
 					}
 				});
@@ -128,7 +128,7 @@ $(function(){
 			$(".datatxt-interlist ul").text("暂无数据");
 		}
 		else if(ret.status=="1"&&ret.message=="账号未登录"){
-				location.href=lemon.config.global.rootUrl+"/login.html"
+				location.href=youtest.config.global.rootUrl+"/login.html"
 			}
 		}
 	});
@@ -156,7 +156,7 @@ $(function(){
 	$('.btn-addinter').click(function(){
 		var projectId =sessionStorage.getItem("projectId")
 		let sessionId=$.cookie("sessionId");
-		var url = lemon.config.global.adminUrl+"/apiClassification/findAll";
+		var url = youtest.config.global.adminUrl+"/apiClassification/findAll";
 		//准备分类下拉框数据
 		//$.post(url,{"projectId":1},function(ret){
 			$.ajax({
@@ -173,7 +173,7 @@ $(function(){
 				$("[name='apiClassificationId']").html();
 				$("[name='apiClassificationId']").html(options);
 			}else if(ret.status=="1"&&ret.message=="账号未登录"){
-				location.href=lemon.config.global.rootUrl+"/login.html"
+				location.href=youtest.config.global.rootUrl+"/login.html"
 				//alert(ret.msg);
 			}else if ( ret.data.length==0) {
 					alert("无接口分类信息，请先添加接口分类信息！")
@@ -198,7 +198,7 @@ $(function(){
 			        	ifViladate = $form.validate('submitValidate');
 					  	if(!ifViladate)return;
 			        	$.ajax({
-							url:lemon.config.global.adminUrl+"/api/addApi",
+							url:youtest.config.global.adminUrl+"/api/addApi",
 							headers:{"Authorization":sessionId},
 			        		data:$form.serialize(),
 			        		type:'post',
@@ -209,7 +209,7 @@ $(function(){
 			        				dialog.close();
 			        				window.location.reload();
 			        			}else if(ret.status=="1"&&ret.message=="账号未登录"){
-									location.href=lemon.config.global.rootUrl+"/login.html"
+									location.href=youtest.config.global.rootUrl+"/login.html"
 			        				//alert(ret.msg);
 			        			}
 			        		}
@@ -248,7 +248,7 @@ $(function(){
   	});
 	
 	$("#suiteLink").click(function(){
-		var rootUrl = lemon.config.global.rootUrl;
+		var rootUrl = youtest.config.global.rootUrl;
 		var to = rootUrl+"/suite/findAll";
 		window.location.href = to;
 	});

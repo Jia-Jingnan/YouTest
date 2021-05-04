@@ -213,7 +213,7 @@ $(function(){
 	// $(".comfirm-interedit").find(".btn-com").click(function(){
 		// let sessionId = $.cookie("sessionId");
 		// $.ajax({
-		// 	url:lemon.config.global.adminUrl+"/api/edit",
+		// 	url:youtest.config.global.adminUrl+"/api/edit",
 		// 	headers:{"Authorization":sessionId},
 		// 	data:$("[name='apiEditForm']").serialize(),
 		// 	type:'post',

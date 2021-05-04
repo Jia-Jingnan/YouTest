@@ -16,6 +16,7 @@ public class YoutestMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         // 注册接口的regtime字段自动填充
         this.setFieldValByName("regtime",new Date(), metaObject);
+        this.setFieldValByName("create_time",new Date(),metaObject);
 
     }
 

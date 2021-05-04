@@ -74,7 +74,7 @@ $('body').on('click','.add-ass',function(){
 })
 $(function(){
 	//共选择的集合
-	var url = lemon.config.global.adminUrl+"/suite/listAll";
+	var url = youtest.config.global.adminUrl+"/suite/listAll";
 	var projectId=sessionStorage.getItem("projectId")
 	let sessionId = $.cookie("sessionId");
 	$.ajax({
@@ -173,7 +173,7 @@ $(function(){
 		        	if(!ifViladate)return false;
 		        	var suiteId = $('.pcAlert').last().find(".sellist-addass").find("li.active").val();
 		        	var name = $('.pcAlert').last().find("[name='name']").val();
-					var url=lemon.config.global.adminUrl+"/cases/add?name="+name+"&suiteId="+suiteId;
+					var url=youtest.config.global.adminUrl+"/cases/add?name="+name+"&suiteId="+suiteId;
 					var sessionId=$.cookie("sessionId");
 		        	$.ajax({
 						url:url,
@@ -212,7 +212,7 @@ $(function(){
 	$(".btn-send").click(function(){
 		let sessionId=$.cookie("sessionId");
 		$.ajax({
-			url:lemon.config.global.adminUrl+"/api/apiRun",
+			url:youtest.config.global.adminUrl+"/api/apiRun",
 			headers:{"Authorization":sessionId},
 			data:$("[name='apiRunForm']").serialize(),
 			type:'post',
@@ -228,7 +228,7 @@ $(function(){
 					$("[name='responseHeader']").html("<pre class='pre-scrollable' style='color:"+colorStr+"'>"+JSON.stringify(JSON.parse(ret.data.headers), null, 2)+"</pre>");
 					$("[name='responseBody']").html("<pre class='pre-scrollable' style='color:"+colorStr+"'>"+JSON.stringify(JSON.parse(ret.data.body), null, 2)+"</pre>");
 				}else if(ret.status=="1"&&ret.message=="账号未登录"){
-					location.href=lemon.config.global.rootUrl+"/login.html"
+					location.href=youtest.config.global.rootUrl+"/login.html"
 				}
 			}
 		});
