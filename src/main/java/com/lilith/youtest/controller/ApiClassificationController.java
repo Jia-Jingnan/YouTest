@@ -7,6 +7,7 @@ import com.lilith.youtest.service.ApiClassificationService;
 import com.lilith.youtest.vo.ApiClassificationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,28 @@ public class ApiClassificationController {
     @Autowired
     private ApiClassificationService apiClassificationService;
 
-    //todo 添加接口分类，单表操作
+    //todo 搜索接口或分类的方法，使用模糊查询
+
+    //todo 编辑分类方法
+
+    @ApiOperation(value = "删除分类",httpMethod = "DELETE")
+    @DeleteMapping("/{apiClassification}")
+    public CommonResult delete(@PathVariable("id") Integer apiClassificationId){
+        CommonResult commonResult = null;
+        if (apiClassificationId != null){
+            apiClassificationService.removeById(apiClassificationId);
+            commonResult = new CommonResult("1","删除成功");
+            return commonResult;
+        } else {
+            commonResult = new CommonResult("0","分类ID为空");
+            return commonResult;
+        }
+
+
+    }
+
+
+
     @ApiOperation(value = "增加接口分类", httpMethod = "POST")
     @PostMapping("/{projectId}")
     public CommonResult add(String name,@PathVariable("projectId") Integer projectId){
