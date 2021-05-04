@@ -1,0 +1,139 @@
+<html ang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>测试集合</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta http-equiv="Cache-Control" content="no-transform">
+<link rel="stylesheet" href="../css/index.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="../css/pagination.css">
+<link rel="stylesheet" type="text/css" href="../css/alert.css">
+<link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body>
+	<input name="idOfSelectedSuite" value="2" type="hidden">
+	<div class="right-interlist right-testass">
+		<div class="desc-interlist">
+			<div class="desctop-interlist">
+				<div class="desctit-interlist f-l">测试集合</div>
+				<a href="javascript:;" id="starttest" class="btn-addfl btn-com f-r">开始测试</a>
+			</div>
+			<div class="remark-interlist">
+				<input class="input-com"  style="width: 300px;" value="此处是套件的描述信息description" type="text">
+				<div class="btnbox-interlist">
+					<a href="javascript:;" class="btn-edit"></a> <a href="javascript:;"
+						class="btn-sure"></a> <a href="javascript:;" class="btn-cancel"></a>
+				</div>
+			</div>
+		</div>
+		<div class="data-intrelist data-testass">
+			<table>
+				<thead>
+					<tr>
+						<th width="20%">用例名称</th>
+						<th width="8%">状态</th>
+						<th width="47%">接口路径</th>
+						<th width="15%">测试详情</th>
+					</tr>
+				</thead>
+				<tbody >
+					<tr id="casestr" v-for="cases in  caseListVO">
+						<input name="id" :value="cases.id" type="hidden">
+						<td><a href="caseEdit.html" name="name" @Click="goCase(cases.id)">{{cases.name}}</a></td>
+						<td><i :class="cases.testReport.passFlag==null||cases.testReport.passFlag=='failed'?'icon-fail':'icon-success'"></i></td>
+						<input name="apiId" :value="cases.apiId" type="hidden">
+						<td><a href="apiView.html"
+							class="link-path" name="apiUrl" @Click="goApi(cases.apiId)">{{cases.apiUrl}}</a></td>
+						<td><a href="#" class="btn-testrep btn-com btn-default">测试详情</a></td>
+					</tr>
+					<!-- <tr>
+						<input name="caseId" value="1" type="hidden">
+						<td><a href="caseEdit.html" name="caseEditHref">注册-用户名、密码均为空</a></td>
+						<td><i class="icon-fail"></i></td>
+						<td><a href="caseEdit.html"
+							class="link-path">/futureloan/mvc/api/member/register</a></td>
+						<td><a href="#" class="btn-testrep btn-com btn-default">测试报告</a></td>
+					</tr> -->
+					<!-- <tr>
+						<input name="caseId" value="2" type="hidden">
+						<td><a href="caseEdit.html" name="caseEditHref">注册-密码为空</a></td>
+						<td><i class="icon-fail"></i></td>
+						<td><a href="caseEdit.html"
+							class="link-path">/futureloan/mvc/api/member/register</a></td>
+						<td><a href="#" class="btn-testrep btn-com btn-default">测试报告</a></td>
+					</tr> -->
+				</tbody>
+			</table>
+
+		</div>
+		<div class="box-pagination">
+			<div class="inline-block">
+				<div class="pagination m-style" id="pagination"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/alert.js"></script>
+	
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/caseList.js"></script>
+	<script type="text/javascript"  src="../js/vue.js"> </script>
+	<script type="text/javascript"  src="../js/axios.min.js"> </script>
+	<script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+	<script>
+		var  vue = new Vue({
+			el: ".right-interlist" ,//挂载点
+			data: {
+				caseListVO:[],
+				//titleName:"",
+				//titledDescription:""
+			},
+			methods: {  
+				goApi(apiId){
+					sessionStorage.setItem("apiId",apiId)
+				},
+				goCase(id){
+					sessionStorage.setItem("caseId",id)
+				}
+			},
+			//进入页面直接渲染
+			created () {
+				var projectId =sessionStorage.getItem("projectId")
+				var suiteId=sessionStorage.getItem("suiteId")
+				let sessionId=$.cookie("sessionId");
+				let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+				var listUrl = "";
+				if(projectId!=""&&(suiteId==''||suiteId==null)){
+					listUrl = youtest.config.global.adminUrl+"/cases/findCasesByProjectId";
+					param.append('projectId', projectId)
+				}
+				if(suiteId!=''&&suiteId!=null){
+					param.delete('projectId', projectId)
+					param.append('suiteId', suiteId)
+					listUrl = youtest.config.global.adminUrl+"/cases/findCasesBySuiteId";
+				}
+			   axios({
+				   url: listUrl,
+				   method: 'post',
+				   data: param,
+				   headers: {"Authorization":sessionId}
+						}
+					).then(response=>{
+					   let result=response.data;
+					   if(result.status=="1"&&result.message=="1"){
+						this.caseListVO=result.data
+					   }else if(result.status=="1"&&result.message=="1"&&result.data.length==0){
+						$("#casestr").append("<h3>暂无数据</h3>")()
+					   }
+					   else if (result.status=="1"&&result.message=="账号未登录"){
+						   //top.location.href顶层页面跳转
+						top.location.href=youtest.config.global.rootUrl+"/login.html"
+					   }
+				}) 
+			}
+		})
+	</script>
+	<script type="text/javascript" src="../js/base.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>接口列表</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <link rel="stylesheet" href="../css/index.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/alert.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body>
+	<div class="right-interlist">
+			<div class="desc-interlist">
+				<div class="desctop-interlist">
+					<div class="desctit-interlist f-l">全部接口共<span>(3)</span>个</div>
+					<a href="javascript:;" class="btn-addinter btn-com f-r">添加接口</a>
+				</div>
+				<div class="remark-interlist">
+					<input type="text" class="input-com" value='公共分类'>
+					<div class="btnbox-interlist">
+						<a href="javascript:;" class="btn-edit"></a>
+						<a href="javascript:;" class="btn-sure"></a>
+						<a href="javascript:;" class="btn-cancel"></a>
+					</div>
+				</div>
+			</div>
+			<div class="data-intrelist">
+				<div class="datatit-interlist" id="interDataTit">
+					<ul class="clearfix">
+						<li>接口名称</li>
+						<li>接口路径</li>
+						<li>接口分类</li>
+						<li>
+							状态
+							<i class="icon-filter"></i>
+							<div class="statustit-interlist">
+								<ul>
+									<li class="active">
+										<i class="icon-checkbox active" data="1"></i>
+										已完成
+									</li>
+									<li>
+										<i class="icon-checkbox" data="0"></i>
+										未完成
+									</li>
+								</ul>
+								<div class="btntit-interlist clearfix">
+									<a href="javascript:;" class="btn-confirm f-l">确定</a>
+									<a href="javascript:;" class="btn-reset f-r">重置</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="datatxt-interlist" id="interData">
+					<ul>
+					</ul>
+				</div>
+			</div>
+			<div class="box-pagination">
+				<div class="inline-block">
+					<div class="pagination m-style" id="pagination"></div>
+				</div>
+			</div>
+		</div>
+	<!-- 添加接口弹框 -->
+	<form id="addForm">
+		<div class="dialog-addinter">
+			<div class="line-addinter form_control clearfix">
+				<label>接口分类：</label>
+				<select name="classification">
+						<option value="cs1">公共分类</option>
+						<option value="cs2">测试1</option>
+						<option value="cs3">测试2</option>
+				</select>
+			</div>
+			<div class="line-addinter form_control clearfix" >
+				<label><span>*</span>接口名称：</label>
+				<input type="text" placeholder="接口名称" class="required" data-valid="isNonEmpty" data-error="内容不能为空" name="apiName">
+				<span class="valid_message"></span>
+			</div>
+			<div class="line-addinter form_control clearfix">
+				<label><span>*</span>接口路径：</label>
+				<select class="seltype-addinter" name="apiRequestMethod">
+					<option value="get">GET</option>
+					<option value="post">POST</option>
+					<option value="put">PUT</option>
+					<option value="delete">DELETE</option>
+					<option value="head">HEAD</option>
+					<option value="option">OPTION</option>
+					<option value="patch">PATCH</option>
+				</select>
+				<input type="text" class="path-addinter required" placeholder="/path" name="apiRequestUrl" class="required" data-valid="isNonEmpty" data-error="内容不能为空">
+				<span class="valid_message"></span>
+			</div>
+			<div class="remark-addinter"><span>注：</span>详细的接口数据可以在编辑页面中添加</div>
+		</div>
+	</form>
+     <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>  
+     <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+     <script type="text/javascript" src="../js/alert.js"></script>
+     <script type="text/javascript" src="../js/base.js"></script>
+     <script type="text/javascript" src="../js/jquery-validate.js"></script>
+     <script type="text/javascript" src="../js/apiList.js"></script>
+</body>
+</html>

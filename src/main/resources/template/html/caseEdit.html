@@ -1,0 +1,306 @@
+<html ang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>接口运行</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="stylesheet" href="../css/index.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../css/alert.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body> 
+        <form name="caseForm">
+        	<div class="right-interlist right-interpre">
+        		<div class="paramlist-interrun">
+					<div class="paramcom-interrun radius4">
+							<div class="paramline-interrun active">
+								<div class="line-com line-interrun">
+									<div class="ipt-interrun f-l" style="width:100%">
+										<input placeholder="参数值" style="width:90%" name="name" :value="caseEditVO.name" type="text">
+										<span class="inter-link" style="margin: 0px 8px 0px 6px; font-size: 12px;">
+											<a class="text" href="../api/find?id=2">对应接口</a>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+        		<input :value="caseEditVO.apiId" name="apiId" type="hidden">
+        		<input :value="caseEditVO.id" name="id" type="hidden">
+        		<input :value="caseEditVO.method" name="method" type="hidden">
+        		<input :value="caseEditVO.host" name="host" type="hidden">
+        		<div class="del-interrun">
+        			<div class="envirset-interrun">
+						<div class="line-interedit line-interrun line-com clearfix">
+							<select style="width:10%;" disabled="disabled">
+								<option value="get" :selected="caseEditVO.method=='get'">GET</option>
+								<option value="post" :selected="caseEditVO.method=='post'">POST</option>
+								<option value="put" :selected="caseEditVO.method=='put'">PUT</option>
+								<option value="delete" :selected="caseEditVO.method=='delete'">DELETE</option>
+								<option value="head" :selected="caseEditVO.method=='head'">HEAD</option>
+								<option value="option" :selected="caseEditVO.method=='option'">OPTION</option>
+								<option value="patch" :selected="caseEditVO.method=='patch'">PATCH</option>
+							</select>
+							<div class="ipt-interedit f-l" style="width:45%;">
+								<input class="iptenvir-interrun pointer arrow" :value="caseEditVO.host" disabled="disabled" type="text">
+							</div>
+							<div class="ipt-interedit" style="width:45%;">
+								<input readonly="readonly" class="disabled" name="url" :value="caseEditVO.url" placeholder="接口地址" type="text">
+							</div>
+						</div>
+						<div class="btnbox-interrun f-r">
+							<a href="javascript:void(0);" class="btn-send btn-com">发送</a>
+							<a href="javascript:void(0);" id="btnUApi" class="btn-update btn-com">更新</a>
+						</div>
+        			</div>
+        			<div class="paramlist-interrun">
+						<div class="paramcom-interrun radius4">
+							<div class="paramtit-interrun"><i class="icon-arrow active"></i>Query</div>
+							<div class="paramline-interrun active" id="queryDiv">
+								<!-- <div class="line-com line-interrun">
+									<input name="headerParams[0].id" value="6" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="Content-Type" name="headerParams[0].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="headerParams[0].value" value="x-www-form-urlencoded" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="paramcom-interrun radius4">
+							<div class="paramtit-interrun"><i class="icon-arrow active"></i>BODY</div>
+							<div class="paramline-interrun active" id="bodyDiv">
+								<!-- <div class="line-com line-interrun" >
+									<input name="bodyParams[0].id" value="1" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="mobilephone" name="bodyParams[0].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="bodyParams[0].value" value="13517315120" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div> -->
+							
+							</div>
+						</div>
+						<div class="paramcom-interrun radius4">
+							<div class="paramtit-interrun"><i class="icon-arrow active"></i>HEADERS</div>
+							<div class="paramline-interrun active" id="headDiv">
+								<!-- <div class="line-com line-interrun">
+									<input name="headerParams[0].id" value="6" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="Content-Type" name="headerParams[0].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="headerParams[0].value" value="x-www-form-urlencoded" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						
+        			</div>
+        			<div class="response-interrun">
+        				<div class="restit-interrun">
+							<div class="titnav-interrun ">响应结果</div>
+							<div class="titnav-interrun">响应断言</div>
+							<!-- <div class="titnav-interrun">数据验证</div> -->
+        				</div>
+						<div class="reslist-interrun"> 
+							<div class="comlist-interrun headlist-interrun f-l">
+								<div class="titlist-interrun">Headers</div>
+								<div class="txtlist-interrun radius4" name="responseHeader">
+									<pre></pre>
+								</div>
+							</div>
+							<div class="comlist-interrun bodylist-interrun f-l">
+								<div class="titlist-interrun">Body</div>
+								<div class="txtlist-interrun radius4" name="responseData">
+								<pre></pre>
+								</div>
+							</div>
+						</div>
+						<div class="testlist-interrun" style="display:none">
+							<div class="reqpline-interedit linebox-interedit">
+								<a href="javascript:void(0)" class="btn-com" id="addRule" style="margin-top:10px;margin-left:10px">添加断言</a>
+								<div class="line-interedit line-com" v-for="(testRule,index) in caseEditVO.testRules">
+									<input type="hidden" :name=`testRules[${index}].id` :value="testRule.id"  > 
+									
+									<select :name=`testRules[${index}].rule` style="width:8%" >
+										<option value='1' :selected="testRule.rule=='1'">contains</option>
+										<option value='2' :selected="testRule.rule=='2'">notcontains</option>
+										<option value='3' :selected="testRule.rule=='3'">jsonpathvalue</option>
+										<option value='4' :selected="testRule.rule=='4'">jsonpathcount</option>
+										<option value='5' :selected="testRule.rule=='5'">=</option>
+										<option value='6' :selected="testRule.rule=='6'">!=</option>
+										<option value='7' :selected="testRule.rule=='7'">script</option>
+									</select>
+									<textarea placeholder="jsonpath表达式" :name=`testRules[${index}].expression` :value="testRule.expression" style="width:25%"> 
+										{{testRule.expression}}
+									</textarea>
+									<select :name=`testRules[${index}].operator` style="width:7%">
+										<option value='8' :selected="testRule.operator=='8'">=</option>
+										<option value='9' :selected="testRule.operator=='9'">contains</option>
+										<option value='10' :selected="testRule.operator=='10'">notcontains</option>
+										<option value='11' :selected="testRule.operator=='11'">!=</option>
+										<option value='' :selected="testRule.operator==null">无</option>
+									</select>
+									<textarea placeholder="期望值" :name=`testRules[${index}].expected` :value="testRule.expected" style="width:35%">
+								{{testRule.expected}}
+									</textarea>
+									<i class="icon icon-delete f-l"></i>
+								</div>
+							</div>
+							<!-- <div class="comlist-interrun headlist-interrun f-l">
+								<div class="titlist-interrun">jsonPath表达式</div>
+								<textarea name="caseTestRule.expression" id="" class="remark-interedit"></textarea>
+							</div>
+							<div class="comlist-interrun bodylist-interrun f-l">
+								<div class="titlist-interrun">期望值</div>
+								<textarea name="caseTestRule.expected" id="" class="remark-interedit"></textarea>
+							</div> -->
+						</div>
+						<!-- <div class="dataTest-interrun" style="display:none">   数据验证模块
+							<div class="reqpline-interedit linebox-interedit">
+								<a href="javascript:void(0)" class="btn-com" id="addRule" style="margin-top:10px;margin-left:10px">添加数据验证</a>
+								<div class="line-interedit line-com" v-for="(testRule,index) in caseEditVO.testRules">
+									<input type="hidden" :name=`testRules[${index}].id` :value="testRule.id"  type="text"> 
+									<select :name=`testRules[${index}].rule` style="width:8%" >
+										<option value='1' :selected="testRule.rule=='1'">前置sql验证</option>
+										<option value='2' :selected="testRule.rule=='2'">后置sql验证</option>
+									</select>
+									<textarea placeholder="sql语句" :name=`testRules[${index}].expression` :value="testRule.expression" style="width:40%"> 
+										{{testRule.expression}}
+									</textarea>
+									
+									<textarea placeholder="期望值" :name=`testRules[${index}].expected` :value="testRule.expected" style="width:35%">
+								{{testRule.expected}}
+									</textarea>
+									<i class="icon icon-delete f-l"></i>
+								</div>
+							</div>
+						</div> -->
+        			</div>
+        			
+        		</div>
+        	</div>
+        </div>
+        </form>
+     <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>  
+     <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+     <script type="text/javascript" src="../js/alert.js"></script> 
+     <script type="text/javascript" src="../js/common.js"></script>
+     <script type="text/javascript" src="../js/jquery-validate.js"></script>
+	 <script type="text/javascript"  src="../js/vue.js"> </script>
+	<script type="text/javascript"  src="../js/axios.min.js"> </script>
+	<script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+	<script>
+		var  vue = new Vue({
+			el: ".right-interlist" ,//挂载点
+			data: {
+				caseEditVO:{},
+				ruletypelist:[]
+				//titleName:"",
+				//titledDescription:""
+			},
+			methods: {  
+			
+				showCase(){
+				var caseId=sessionStorage.getItem("caseId")
+				let sessionId=$.cookie("sessionId");
+				let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+				param.append('caseId', caseId)
+				var listUrl = youtest.config.global.adminUrl+"/cases/findCaseEditVO";
+				
+			   axios({
+				   url: listUrl,
+				   method: 'post',
+				   data: param,
+				   headers: {"Authorization":sessionId}
+						}
+					).then(response=>{
+					   let result=response.data;
+					   if(result.status=="1"&&result.message=="1"){
+						this.caseEditVO=result.data
+						let requestParams=this.caseEditVO.requestParams
+						for(var i=0;i<requestParams.length;i++){
+							let param=requestParams[i];
+							let paramObj=""
+							let str=`<div class="line-com line-interrun" >
+									<input name="requestParams[${i}].type" value="${param.type}" type="hidden">
+									<input name="requestParams[${i}].valueId" value="${param.valueId}" type="hidden">
+									<input name="requestParams[${i}].id" value="${param.id}" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="${param.type==4?'json':param.name}" name="requestParams[${i}].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="requestParams[${i}].value" value='${param.value==null?'':param.value}' type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div>`;
+								if(param.type=="1"){
+									paramObj=$('#queryDiv')
+								}else if(param.type=="2"||param.type=="4"){
+									paramObj=$('#bodyDiv')
+								}else if(param.type=="3"){
+									paramObj=$('#headDiv')
+								 }
+								 paramObj.append(str);
+						}
+					   } else if (result.status=="1"&&result.message=="账号未登录"){
+						top.location.href=youtest.config.global.rootUrl+"/login.html"
+					   }
+				}) 
+				},
+				findRuleType(){
+				let sessionId=$.cookie("sessionId");
+				var listUrl = youtest.config.global.adminUrl+"/ruleType/findRuleType";
+			   axios({
+				   url: listUrl,
+				   method: 'post',
+				   //data: param,
+				   headers: {"Authorization":sessionId}
+						}
+					).then(response=>{
+					   let result=response.data;
+					   if(result.status=="1"&&result.message=="1"){
+						this.ruletypelist=result.data
+					   } else if (result.status=="1"&&result.message=="账号未登录"){
+						top.location.href=youtest.config.global.rootUrl+"/login.html"
+					   }
+				}) 
+
+				}
+			},
+			//进入页面直接渲染
+			created () {
+				this.showCase()
+				this.findRuleType()
+				//var projectId =sessionStorage.getItem("projectId")
+				
+			}
+		})
+	</script>
+	<script type="text/javascript" src="../js/caseEdit.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+
+</body></html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="indexHtml" ang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>后台管理</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <link rel="stylesheet" type="text/css"  href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../css/alert.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body class="indexBody">
+<div class="con-wripper " >
+    <div class="con-top clearfix">
+        <div class="left-top f-l">
+            <div class="logo-top f-l">
+            </div>
+            <div class="modname-top f-l">API RUNNER</div>
+            <div id="projectName" class="modname-top f-l">API RUNNER</div>
+        </div>
+        <div class="right-top f-r">
+            <div class="srch-top f-l">
+                <input type="text"  class="ipt-top" placeholder="搜索分组/项目/接口" />
+            </div>
+            <div class="handle-top f-l">
+                <i class="icon-top icon-collect"></i>
+                <i class="icon-top icon-plus"></i>
+                <i class="icon-top icon-doubt"></i>
+            </div>
+            <div class="ctr-top f-l">
+                <div class="btn_stretch">
+                    <a class="header-top"></a>
+                    <i class="icon-arrow"></i>
+                </div>
+                <ul class="ctrlist-top">
+                    <li class="pctr-top">
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li class="quit-top">
+                        <a href="#">退出</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="nav-interlist">
+        <ul class="clearfix">
+            <li><a href="projectList.html">项目列表</a></li>
+            <li><a href="index.html">接口列表</a></li>
+            <li  class="active"><a href="#">测试报告</a></li>
+            <li><a href="projectSet.html">项目设置</a></li>
+        </ul>
+    </div>
+    <div class="main-interlist com-module clearfix mr24">
+        <div class="right-interlist right-testass">
+            <div class="desc-interlist">
+                <div class="desctop-interlist">
+                    <div class="desctit-interlist f-l">测试报告列表</div>
+                </div>
+                <!-- <div class="remark-interlist">
+                    <input class="input-com"  style="width: 300px;" value="此处是套件的描述信息description" type="text">
+                    <div class="btnbox-interlist">
+                        <a href="javascript:;" class="btn-edit"></a> <a href="javascript:;"
+                            class="btn-sure"></a> <a href="javascript:;" class="btn-cancel"></a>
+                    </div>
+                </div> -->
+            </div>
+               
+            <!-- <form class="form-inline" style="margin-top: 50px;">
+                <div class="form-group">
+                  <label style="margin-left: 100px;" for="exampleInputName2">报告名称</label>
+                  <input style="margin-left: 20px;" type="text" class="form-control" id="exampleInputName2" placeholder="请输入报告名称">
+                </div>
+                <div class="form-group">
+                  <label style="margin-left: 50px;" for="exampleInputEmail2">报告日期</label>
+                  <input style="margin-left: 20px;" type="text" class="form-control" id="exampleInputEmail2" placeholder="起始日期">
+                </div>
+                <div class="form-group">
+                    <label  style="margin-left: 50px;" for="exampleInputEmail2">至</label>
+                    <input style="margin-left: 20px;" type="text" class="form-control" id="exampleInputEmail2" placeholder="截止日期">
+                  </div>
+                <button style="margin-left: 20px;" type="reset" class="btn btn-default">重置</button>
+                <button style="margin-left: 10px;" type="submit" class="btn btn-primary" @clike="getReportList(currentPage4,pageSize)">搜索</button>
+            </form> -->
+            <el-form :inline="true" :model="formInline" ref="formInline" class="demo-form-inline" style="margin-top: 50px;">
+                <el-form-item label="报告名称" prop="reportName" style="margin-left: 50px;" >
+                  <el-input  v-model="formInline.reportName" placeholder="请输入报告名称"></el-input>
+                </el-form-item>
+                <el-form-item label="测试人员" prop="username" style="margin-left: 20px;" >
+                    <el-input  v-model="formInline.username" placeholder="请输入测试人员"></el-input>
+                  </el-form-item>
+                <el-form-item label="报告日期" prop="startTime" style="margin-left: 20px;">
+                    <!-- <el-input v-model="formInline.startTime" placeholder="请选择开始日期"></el-input> -->
+                    <template>
+                        <div class="block">
+                          <!-- <span class="demonstration">默认</span> -->
+                          <el-date-picker
+                            v-model="formInline.startTime"
+                            type="date"
+                            placeholder="请选择开始日期">
+                          </el-date-picker>
+                        </div>
+                      </template>
+                  <!-- <el-select v-model="formInline.startTime" placeholder="报告日期">
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                  </el-select> -->
+                </el-form-item>
+                <el-form-item label="至" prop="endTime" style="margin-left: 20px;">
+                    <!-- <el-input v-model="formInline.endTime" placeholder="请选择结束日期"></el-input> -->
+                    <template>
+                        <div class="block">
+                          <!-- <span class="demonstration">默认</span> -->
+                          <el-date-picker
+                            v-model="formInline.endTime"
+                            type="date"
+                            placeholder="请选择结束日期">
+                          </el-date-picker>
+                        </div>
+                      </template>
+                  <!-- <el-select v-model="formInline.startTime" placeholder="报告日期">
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                  </el-select> -->
+                </el-form-item>
+                <el-form-item>
+                    <el-button  round type="danger" @click="resetForm('formInline')" >重置</el-button>
+                  <el-button  round type="primary" @click="onSubmit">查询</el-button>
+                </el-form-item>
+              </el-form>
+            <div class="data-intrelist data-testass">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <!-- <th width="4%">序号</th> -->
+                            <th width="4%">报告id</th>
+                            <th width="28%">报告名称</th>
+                            <th width="8%">总案例数</th>
+                            <th width="8%">成功案例数</th>
+                            <th width="8%">失败案例数</th>
+                            <th width="8%">成功率</th>
+                            <th width="10%">报告日期</th>
+                            <th width="10%">测试人员</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr id="casestr" v-for="reportVO in  result.content">
+                            <!-- <input name="reptId" :value="reportVO.reptId" type="hidden"> -->
+                            <!-- <td>1</td> -->
+                            <td>{{reportVO.reptId}}</td>
+                            <td><a href="testReport.html" name="reptName" @click="gotoReport(reportVO.reptId)">{{reportVO.reptName}}</a></td>
+                            <td>{{reportVO.totalCase}}</td> <!--总案例数据-->
+                            <td>{{reportVO.successes}}</td> <!--成功数-->
+                            <td>{{reportVO.failures}}</td> <!--失败数-->
+                            <td :style="reportVO.successes/reportVO.totalCase*100>80?'color:rgb(0, 204, 0)':'color:rgb(255, 0, 0)'">{{(reportVO.successes/reportVO.totalCase*100).toFixed(2)}}%</td> <!--成功率-->
+                            <td>{{reportVO.createTime}}</td>   
+                            <td>{{reportVO.username}}</td>  
+                        </tr>
+                    
+                    </tbody>
+                </table>
+                <template>
+                    <div class="block" align="center">
+                      <!-- <span class="demonstration">完整功能</span> -->
+                      <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage4"
+                        :page-sizes="[10, 15, 20]"
+                        :page-size="pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="result.totalSize">
+                      </el-pagination>
+                    </div>
+                  </template>
+            </div>
+            <div class="box-pagination">
+                <div class="inline-block">
+                    <div class="pagination m-style" id="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+        <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+        <script type="text/javascript" src="../js/alert.js"></script>
+        <script src="../jquery-3.4.1/jquery-3.4.1.min.js"></script> 
+        <script type="text/javascript" src="../js/common.js"></script>
+        <script type="text/javascript" src="../js/caseList.js"></script>
+        <script type="text/javascript"  src="../js/vue.js"> </script>
+        <script type="text/javascript"  src="../js/axios.min.js"> </script>
+        <script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="../element-ui/lib/index.js"></script>
+        <script>
+            var  vue = new Vue({
+                el: ".main-interlist" ,//挂载点
+                data: {
+                    result:{},
+                   
+                    currentPage1: 5,
+                    currentPage2: 5,
+                    currentPage3: 5,
+                    currentPage4: 1,
+                    pageSize:10,
+                    formInline:{
+                        reportName:"",
+                        startTime:"",
+                        endTime:"",
+                        username:""
+                    }
+                    
+                    //reportVOList:[]
+                },
+                methods: {  
+                    getReportList(formInline,pageNum,pageSize){
+                        
+                        sessionStorage.removeItem("suiteId") //为了切换时默认选择全部 后续优化
+                        let url=youtest.config.global.adminUrl+"/reportRecord/getReportListPage2";
+                        let projectId=sessionStorage.getItem("projectId");
+                        let sessionId=$.cookie("sessionId");
+                        let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+                        param.append('projectId', projectId)
+                        param.append('pageNum', pageNum)
+                        param.append('pageSize', pageSize)
+                        param.append('reportName', formInline.reportName)
+                        param.append('startTime', formInline.startTime)
+                        param.append('endTime', formInline.endTime)
+                        param.append('username', formInline.username)
+                        axios({
+                        url: url,
+                        method: 'post',
+                        data: param,
+                        headers: {"Authorization":sessionId}}
+                        ).then(response=>{
+                        let result=response.data;
+                        console.log(result)
+                        if(result.status=="1"&&result.message=="1"){
+                            this.result=result.data 
+                        }else if(result.status=="1"&&result.message=="1"&&result.data.content.length==0){
+                            //暂无数据
+                        }
+                        else if (result.status=="1"&&result.message=="账号未登录"){
+                          //location.href当前页跳转
+                          //location.top.href顶层窗口跳转
+                            location.href=youtest.config.global.rootUrl+"/login.html"
+                        }
+                        }) 
+                    },
+                    gotoReport(reptId){
+                        sessionStorage.setItem("reptId",reptId)
+                    },
+                    handleSizeChange(val) {//监听当前页面每页多少条
+                    // console.log(`每页 ${val} 条`);
+                     this.pageSize=val;
+                     this.getReportList(this.formInline,this.currentPage4,this.pageSize)
+                    },
+                    handleCurrentChange(val) {//监听当前页面在第几页
+                    // console.log(`当前页: ${val}`);
+                     this.currentPage4=val;
+                     this.getReportList(this.formInline, this.currentPage4,this.pageSize)
+                    },
+                    onSubmit() { //监听查询按钮--此处查询时默认从第一页开始--否则会出现无法查询数据的问题
+                        //console.log('submit!');
+                        this.getReportList(this.formInline, 1,this.pageSize)
+                    },
+                    resetForm(formName) {
+                      this.$refs[formName].resetFields();
+                    }
+                                    
+                },
+                //     data() {
+                //     return {
+                //         currentPage1: 5,
+                //         currentPage2: 5,
+                //         currentPage3: 5,
+                //         currentPage4: 1,
+                //         pageSize:10
+                //     };
+                // },
+                //进入页面直接渲染
+                created () {
+                    this.getReportList(this.formInline,this.currentPage4,this.pageSize);
+                }
+            })
+        </script>
+        <!-- <script>
+            export default {
+              methods: {
+                handleSizeChange(val) {
+                  console.log(`每页 ${val} 条`);
+                },
+                handleCurrentChange(val) {
+                  console.log(`当前页: ${val}`);
+                }
+              },
+              data() {
+                return {
+                  currentPage1: 5,
+                  currentPage2: 5,
+                  currentPage3: 5,
+                  
+                };
+              }
+            }
+          </script> -->
+        
+         <script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

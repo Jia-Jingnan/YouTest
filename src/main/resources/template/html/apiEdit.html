@@ -1,0 +1,353 @@
+<html ang="zh-CN">
+
+<head></head>
+
+<body><input name="apiId" value="4" type="hidden">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>接口预览</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta http-equiv="Cache-Control" content="no-transform">
+	<link rel="stylesheet" href="../css/index.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="../css/pagination.css">
+	<link rel="stylesheet" type="text/css" href="../css/alert.css">
+	<link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+
+	<style>
+		#saveApi{  /*伪类;鼠标放上去样式变成如下*/
+			cursor: pointer;      /*变成点击状*/
+		}
+	</style>
+	<div class="right-interlist right-interpre">
+		<div class="nav-interpre">
+			<ul>
+				<li><a href="apiView.html">预览</a></li>
+				<li class="active"><a href="#">编辑</a></li>
+				<li><a href="apiRun.html">运行</a></li>
+			</ul>
+		</div>
+		<form name="apiEditForm">
+			
+			<div class="del-interpre del-interedit">
+				<input name="id" :value="apiVo.id" type="hidden">
+				<div class="basicinfo-interpre basicset-interedit">
+					<div class="comtit-interpre notop">基本设置</div>
+					<div class="setlist-interedit">
+						<div class="line-interedit line-com">
+							<label><span>*</span>接口名称：</label>
+							<div class="ipt-interedit">
+								<input name="name" :value="apiVo.name" placeholder="接口名称" type="text">
+							</div>
+						</div>
+						<div class="line-interedit line-com">
+							<label><span>*</span>选择分类：</label>
+							<div class="ipt-interedit">
+								<select name="apiClassificationId" id="">
+									<!-- 名称需要与后台属性名一致，否则保存的时候无法对应上 -->
+									<option :value="apiClassification.id"
+										v-for="apiClassification in apiClassifications" :selected="apiVo.apiClassificationId==apiClassification.id">
+										{{apiClassification.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="line-interedit line-com">
+							<label><span>*</span>请求方法<i class="icon-doubt"></i>：</label>
+							<div class="ipt-interedit">
+								<select name="method" id="" class="reqtype-interedit"
+									style="width:15%;margin-right:0;">
+									<option value="get" :selected="apiVo.method=='get'">GET</option>
+									<option value="post" :selected="apiVo.method=='post'">POST</option>
+									<option value="put" :selected="apiVo.method=='put'">PUT</option>
+									<option value="delete" :selected="apiVo.method=='delete'">DELETE</option>
+									<option value="head" :selected="apiVo.method=='head'">HEAD</option>
+									<option value="option" :selected="apiVo.method=='option'">OPTION</option>
+									<option value="patch" :selected="apiVo.method=='patch'">PATCH</option>
+								</select>
+							</div>
+						</div>
+						<div class="line-interedit line-com">
+							<label><span>*</span>接口地址<i class="icon-doubt"></i>：</label>
+							<div class="ipt-interedit">
+								<input placeholder="/path" name="url" :value="apiVo.url"
+									type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="basicinfo-interpre reqparamsset-interedit">
+					<div class="comtit-interpre">请求参数设置</div>
+					<div class="reqplist-interedit">
+						<div class="reqpnav-interedit comnav-interedit">
+							<ul class="clearfix inline-block">
+								<li class="active"><a href="javascript:void(0);">Query</a></li>
+								<li><a href="javascript:void(0);">Body</a></li>
+								<li class="header"><a href="javascript:void(0);">Headers</a></li>
+							</ul>
+						</div>
+						<div class="reqpdel-interedit comdel-interedit clearfix">
+							<div class="reqpcom-interredit active" id="reqpQuery">
+								<div class="reqpline-interedit linebox-interedit">
+									<a href="javascript:void(0)" class="btn-com">添加Query参数</a>
+									<!-- <div class="line-interedit line-com">
+										<input name="queryParams[0].id" value="7" type="hidden">
+										<input name="queryParams[0].apiId" value="4" type="hidden">
+										<input name="queryParams[0].type" value="1" type="hidden">
+										<input placeholder="name" name="queryParams[0].name" value="mobilephone"
+											style="width:18%" type="text">
+										<select name="queryParams[0].paramType" id="" style="width:12%">
+											<option value="string">string</option>
+											<option value="int">int</option>
+										</select>
+										<textarea name="queryParams[0].exampleData" id="" value="" placeholder="参数示例"
+											style="width:20%"></textarea>
+										<textarea name="queryParams[0].description" id="" value="" placeholder="备注"
+											style="width:25%">手机号</textarea>
+										<i class="icon icon-delete f-l"></i>
+									</div> -->
+								</div>
+							</div>
+							<div class="reqpcom-interredit" id="reqpBody">
+								<div class="radiobox-interedit">
+									<input value="form" type="radio" :checked="jsonParam==''" name="pt">form
+									<input value="raw" type="radio" :checked="jsonParam!=''" name="pt" >raw
+								</div>
+								<div class="reqpline-interedit linebox-interedit">
+									<a href="javascript:void(0);" class="btn-com" v-show="jsonParam==''">添加form参数</a>
+									<!-- <div class="line-interedit line-com">
+										<input name="bodyParams[0].id" value="7" type="hidden">
+										<input name="bodyParams[0].apiId" value="4" type="hidden">
+										<input name="bodyParams[0].type" value="1" type="hidden">
+										<input placeholder="name" name="bodyParams[0].name" value="mobilephone"
+											style="width:18%" type="text">
+										<select name="bodyParams[0].paramType" id="" style="width:12%">
+											<option value="string">string</option>
+											<option value="int">int</option>
+										</select>
+										<textarea name="bodyParams[0].exampleData" id="" value="" placeholder="参数示例"
+											style="width:20%"></textarea>
+										<textarea name="bodyParams[0].description" id="" value="" placeholder="备注"
+											style="width:25%">手机号</textarea>
+										<i class="icon icon-delete f-l"></i>
+									</div>
+									<div class="line-interedit line-com">
+										<input name="bodyParams[1].id" value="8" type="hidden">
+										<input name="bodyParams[1].apiId" value="4" type="hidden">
+										<input name="bodyParams[1].type" value="1" type="hidden">
+										<input placeholder="name" name="bodyParams[1].name" value="pwd"
+											style="width:18%" type="text">
+										<select name="bodyParams[1].paramType" id="" style="width:12%">
+											<option value="string">string</option>
+											<option value="int">int</option>
+										</select>
+										<textarea name="bodyParams[1].exampleData" id="" value="" placeholder="参数示例"
+											style="width:20%"></textarea>
+										<textarea name="bodyParams[1].description" id="" value="" placeholder="备注"
+											style="width:25%">密码</textarea>
+										<i class="icon icon-delete f-l"></i>
+									</div> -->
+								</div>
+							</div>
+							<div class="reqpcom-interredit" id="reqpHeaders">
+								<div class="reqpline-interedit linebox-interedit">
+									<a href="javascript:void(0)" class="btn-com">添加Header参数</a>
+									<!-- <div class="line-interedit line-com">
+										<input name="headerParams[0].id" value="9" type="hidden">
+										<input name="headerParams[0].apiId" value="4" type="hidden">
+										<input name="headerParams[0].type" value="3" type="hidden">
+										<input placeholder="参数名称" name="headerParams[0].name" value="Content-Type"
+											style="width:20%" type="text">
+										<select name="headerParams[1].paramType" id="" style="width:12%">
+											<option value="string">string</option>
+											<option value="int">int</option>
+										</select>
+										<textarea name="headerParams[0].exampleData" id="" value="" placeholder="参数示例"
+											style="width:20%"></textarea>
+										<textarea name="headerParams[0].description" id="" value="" placeholder="备注"
+											style="width:29%">表单提交参数</textarea>
+										<i class="icon icon-delete f-l"></i>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="basicinfo-interpre reqparamsset-interedit">
+					<div class="comtit-interpre">备 注</div>
+					<div class="reqplist-interedit">
+						<textarea name="description" id="" class="remark-interedit">{{apiVo.description}}</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="comfirm-interedit">
+				<!-- javascript:void(0) -->
+				<div  id="saveApi" class="btn-com" @click="saveApi()">保存</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/alert.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="../js/vue.js"> </script>
+	<script type="text/javascript" src="../js/axios.min.js"> </script>
+	<script>
+		var vue = new Vue({
+			el: ".right-interlist",//挂载点
+			data: {
+				info: [],
+				apiClassifications: [],
+				apiVo:{},
+				jsonParam:""
+			},
+			methods: {
+				
+				showClassification() {//查询api分类的方法
+					var projectId = sessionStorage.getItem("projectId")
+					let sessionId = $.cookie("sessionId");
+					var url = youtest.config.global.adminUrl + "/apiClassification/findAll";
+					let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+					param.append('projectId', projectId)
+					axios({
+						url: url,
+						method: 'post',
+						data: param,
+						headers: {
+							"Authorization": sessionId,
+							'Content-Type': 'application/x-www-form-urlencoded'
+						}
+					}).then(response => {
+						this.apiClassifications = response.data.data
+						//console.log( response.data.data)
+					})
+				},
+				showApiVo:function() { //查询api基本信息的方法
+					var apiId = sessionStorage.getItem("apiId")
+					let sessionId = $.cookie("sessionId");
+					
+					var url = youtest.config.global.adminUrl + "/api/findApi";
+					let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+					param.append('apiId', apiId)
+					axios({
+						url: url,
+						method: 'post',
+						data: param,
+						headers: {
+							"Authorization": sessionId,	
+						}
+					}).then(response => {
+						this.apiVo = response.data.data
+						if(response.data.status==1&&response.data.message=="账号未登录"){
+							location.href=youtest.config.global.rootUrl+"/login.html"
+						}
+						let requestParams=this.apiVo.requestParams
+							var num=0;
+							var queryNum=0;
+							var bodyNum=0;
+							var headerNum=0;
+							for(var i=0;i<requestParams.length;i++){
+								let param=requestParams[i]
+								let paramName=""
+								let paramObj=""
+								if(param.type=="1"){
+									paramName="queryParams"	//路径上的参数
+									paramObj=$('#reqpQuery .reqpline-interedit')
+									num=queryNum++;
+								}else if(param.type=="2"){
+									paramName="bodyParams"	//body参数
+									paramObj=$('#reqpBody .reqpline-interedit')
+									num=bodyNum++;
+								}else if(param.type=="3"){
+									paramName="headerParams"//头部参数
+									paramObj=$('#reqpHeaders .reqpline-interedit')
+									num=headerNum++;
+								 }
+								let str=`
+									<div class="line-interedit line-com">
+										<input name="${paramName}[${num}].id" value="${param.id}" type="hidden">
+										<input name="${paramName}[${num}].apiId" value="${param.apiId}" type="hidden">
+										<input name="${paramName}[${num}].type" value="${param.type}" type="hidden">
+										<input placeholder="name" name="${paramName}[${num}].name" value="${param.name}"
+											style="width:18%" type="text">
+										<select name="${paramName}[${num}].paramType" id="" style="width:12%">
+											<option value="string" ${param.paramType=='string'?'selected':""}>string</option>
+											<option value="int" ${param.paramType=='int'?'selected':""}>int</option> 
+										</select>
+										<textarea name="${paramName}[${num}].exampleData" id="" value='${param.exampleData}' placeholder="参数示例"
+											style="width:20%">${param.exampleData}</textarea>
+										<textarea name="${paramName}[${num}].description" id="" value="${param.description}" placeholder="备注"
+											style="width:25%">${param.description}</textarea>
+										<i class="icon icon-delete f-l"></i>
+									</div>`
+								if(param.type!="4"){
+									paramObj.append(str);	
+								}
+								 else if(param.type=="4"){
+									this.jsonParam=param.exampleData
+									var toAddHtml = "<div class='basicinfo-interpre reqparamsset-interedit'>"
+										+"<div class='reqplist-interedit'>"
+										+"<textarea name='bodyRawParams[0].exampleData' id='' class='remark-interedit'>"+this.jsonParam+"</textarea>"
+										+"<input name='bodyRawParams[0].type' value='4' type='hidden'/>"
+										+"<input name='bodyRawParams[0].apiId' value='"+apiId+"' type='hidden'/>"
+										+"</div>"
+									+"</div>";
+									$('#reqpBody .reqpline-interedit').append(toAddHtml);
+								}
+							}
+					})
+				},
+				saveApi:function(){
+					//保存按钮
+					//$(".comfirm-interedit").find(".btn-com").click(function(){
+						let sessionId = $.cookie("sessionId");
+						console.log("ssssss")
+						var thisFunction=this;
+						$.ajax({
+							url:youtest.config.global.adminUrl+"/api/edit",
+							headers:{"Authorization":sessionId},
+							data:$("[name='apiEditForm']").serialize(),
+							type:'post',
+							dataType:'json',
+							success:function(ret){
+								//console.log($("[name='apiEditForm']").serialize())
+								if(ret!=null&&ret.message!="账号未登录"){
+									alert(ret.message);
+									window.location.reload();
+									
+								}else if(ret.message=="账号未登录"){
+									location.href=youtest.config.global.rootUrl+"/login.html"
+								}
+							}
+						});
+					//});
+
+				}
+			},
+			//进入页面直接渲染
+			created() {
+				this.showClassification();
+				this.showApiVo();
+				// let url = youtest.config.global.adminUrl + "/project/toList";
+				// let userId = sessionStorage.getItem("userId");
+				// axios.get(
+				// 	url, {
+				// 	headers: { "Authorization": $.cookie("sessionId") },
+				// 	params: { "userId": userId }
+				// }).then(response => {
+				// 	let result = response.data;
+				// 	if (result.status == "1" && result.data != null) {
+				// 		this.info = result.data
+				// 	} else {
+				// 		location.href = youtest.config.global.rootUrl + "/login.html"
+				// 	}
+				// })
+			}
+		})
+	</script>
+	<script type="text/javascript" src="../js/apiEdit.js"></script>
+</body>
+
+</html>

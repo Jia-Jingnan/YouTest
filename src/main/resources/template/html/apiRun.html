@@ -1,0 +1,292 @@
+<html ang="zh-CN"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>接口运行</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="stylesheet" href="../css/index.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+	<link rel="stylesheet" type="text/css" href="../css/alert.css">
+	<link rel="stylesheet" type="text/css" href="../vue-json-viewer/style.css">
+	<link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body>
+        	<div class="right-interlist right-interpre">
+        		<div class="nav-interpre">
+	        		<ul>
+						<li><a href="apiView.html">预览</a></li>
+						<li><a href="apiEdit.html">编辑</a></li>
+						<li class="active"><a href="#">运行</a></li>
+					</ul>
+				</div>
+        		<form name="apiRunForm">
+        		<input name="id" :value="apiVo.id" type="hidden">
+        		<input name="method" :value="apiVo.method" type="hidden">
+        		<input name="host" :value="host" type="hidden">
+        		<input name="projectId" :value="projectId" type="hidden">
+        		<div class="del-interrun">
+        			<div class="envirset-interrun">
+						<div class="line-interedit line-interrun line-com clearfix">
+							<select style="width:10%;" name="method" disabled="disabled">
+									<option value="get" :selected="apiVo.method=='get'">GET</option>
+									<option value="post" :selected="apiVo.method=='post'">POST</option>
+									<option value="put" :selected="apiVo.method=='put'">PUT</option>
+									<option value="delete" :selected="apiVo.method=='delete'">DELETE</option>
+									<option value="head" :selected="apiVo.method=='head'">HEAD</option>
+									<option value="option" :selected="apiVo.method=='option'">OPTION</option>
+									<option value="patch" :selected="apiVo.method=='patch'">PATCH</option>
+							</select>
+							<div class="ipt-interedit f-l" style="margin-left:5px;width:30%;">
+								<input class="iptenvir-interrun" :value="host" disabled="disabled" type="text">
+							</div>
+							<div class="ipt-interedit" style="margin-left:5px;width:53%;">
+								<input readonly="readonly" class="disabled" name="url" :value="apiVo.url" placeholder="接口名称" type="text">
+							</div>
+						</div>
+						<div class="btnbox-interrun f-r">
+							<a href="javascript:void(0);" class="btn-send btn-com" style="margin-left:5px;">发送</a>
+							<!-- <a href="#" class="btn-send btn-com" style="margin-left:5px;" @click="runApi()">发送</a> -->
+							<a href="javascript:void(0);" id="btnSaveInter" class="btn-save btn-com">添加到测试集</a>
+						</div>
+        			</div>
+        			<div class="paramlist-interrun">
+						<div class="paramcom-interrun radius4">
+							<div class="paramtit-interrun"><i class="icon-arrow active"></i>QUERIES</div>
+							<div class="paramline-interrun active" id="reqpQuery">
+								<!-- <div class="line-com line-interrun">
+									<input name="queryParams[0].id" value="7" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value=regname name="queryParams[0].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="queryParams[0].value" value="" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="paramcom-interrun radius4">
+							<div class="paramtit-interrun"><i class="icon-arrow active"></i>BODY</div>
+							<div class="paramline-interrun active" id="reqpBody">
+								<!-- <div class="line-com line-interrun">
+									<input name="bodyParams[0].id" value="7" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="mobilephone" name="bodyParams[0].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="bodyParams[0].value" value="" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div>
+								<div class="line-com line-interrun">
+									<input name="bodyParams[1].id" value="8" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="pwd" name="bodyParams[1].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="bodyParams[1].value" value="" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+						<div class="paramcom-interrun radius4">
+							<div class="paramtit-interrun"><i class="icon-arrow active"></i>HEADERS</div>
+							<div class="paramline-interrun active" id="reqpHeaders">
+								<!-- <div class="line-com line-interrun">
+									<input name="headerParams[0].id" value="9" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value="Content-Type" name="headerParams[0].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="headerParams[0].value" value="" type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+        			</div>
+        			<div class="response-interrun">
+        				<div class="restit-interrun">
+							<div class="titnav-interrun">响应信息</div>
+        				</div>
+						<div class="reslist-interrun">
+							<div class="comlist-interrun headlist-interrun f-l">
+								<div class="titlist-interrun">响应头信息</div>
+								<div class="txtlist-interrun radius4" name="responseHeader">
+									<json-viewer
+									:value="result.headers"
+									:expand-depth=5
+									copyable
+									boxed
+									sort></json-viewer>
+									<!-- <pre></pre> -->
+								</div>
+							</div>
+							<div class="comlist-interrun bodylist-interrun f-l">
+								<div class="titlist-interrun">响应体信息</div>
+								<div class="txtlist-interrun radius4" name="responseBody">
+									<json-viewer
+									:value="result.body"
+									:expand-depth=5
+									copyable
+									boxed
+									sort></json-viewer>
+									<!-- <pre></pre> -->
+								</div>
+							</div>
+						</div>
+        			</div>
+        		</div>
+        	</form>
+        	</div>
+        
+        <!-- 添加到集合 -->
+        <div class="addass-layer top-border btm-border" id="addAssemble">
+        	<form name="addSuiteForm">
+			<div class="top-addass">
+				<div class="line-com">
+					<label>接口用例名：</label>
+					<input placeholder="请输入接口用例名称" name="name" class="required" data-valid="isNonEmpty" data-error="内容不能为空" type="text">
+				</div>
+			</div>
+			<div class="sellist-addass">
+				<div class="seltit-addass">请选择添加到的集合：</div>
+				<ul>
+				
+				</ul>
+			</div>
+			<div class="new-addass radius4">
+				<div class="newline-addass comsib-comdul">
+				</div>
+			</div>
+			</form>
+		</div>
+     <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>  
+     <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+     <script type="text/javascript" src="../js/alert.js"></script>
+     <script type="text/javascript" src="../js/base.js"></script>
+     <script type="text/javascript" src="../js/apiRun.js"></script>
+     <script type="text/javascript" src="../js/common.js"></script>
+     <script type="text/javascript" src="../js/jquery-validate.js"></script>
+	 <script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+	 <script type="text/javascript" src="../js/vue.js"> </script>
+	 <script type="text/javascript" src="../js/axios.min.js"> </script>
+	 <script type="text/javascript" src="../vue-json-viewer/ssr.js"> </script>
+	 <script type="text/javascript" src="../vue-json-viewer/vue-json-viewer.js">
+	 		
+	 </script>
+	 
+	 <script type="module">
+		// import JsonViewer from '../vue-json-viewer'
+		
+		
+		//Vue.use(JsonViewer)
+		var vue = new Vue({
+			 el: ".right-interlist",//挂载点
+			 data: {
+				 apiVo:{},
+				 host:"",
+				 projectId:"",
+				 result:{}
+			 },
+			
+			 methods: {
+				showApiVo() { //查询api基本信息的方法
+					var apiId = sessionStorage.getItem("apiId")
+					let sessionId = $.cookie("sessionId");
+					var url = youtest.config.global.adminUrl + "/api/findApi";
+					let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+					param.append('apiId', apiId)
+					axios({
+						url: url,
+						method: 'post',
+						data: param,
+						headers: {
+							"Authorization": sessionId,	
+						}
+					}).then(response => {
+						this.apiVo = response.data.data
+						if(response.data.status==1&&response.data.message=="账号未登录"){
+							location.href=youtest.config.global.rootUrl+"/login.html"
+						}
+						let requestParams=this.apiVo.requestParams
+							for(var i=0;i<requestParams.length;i++){
+								let param=requestParams[i]
+								let paramName=""
+								let paramObj=""
+								
+								if(param.type=="1"){
+									
+									paramObj=$('#reqpQuery')
+								}else if(param.type=="2"||param.type=="4"){
+									paramObj=$('#reqpBody')
+								}else if(param.type=="3"){
+									paramObj=$('#reqpHeaders')
+								 }
+								let str=`
+								<div class="line-com line-interrun">
+									<input name="requestParams[${i}].id" value="${param.id}" type="hidden">
+									<input name="requestParams[${i}].type" value="${param.type}" type="hidden">
+									<div class="ipt-interrun f-l" style="width:15%">
+										<div class="ltipt-interrun">
+											<input class=" disabled" readonly="readonly" value='${param.type==4?'json':param.name}' name="requestParams[${i}].name" type="text">
+										</div>
+										<div class="equal-interrun f-r">=</div>
+										<input class="disabled f-r" disabled="" checked="" type="checkbox">
+									</div>
+									<div class="ipt-interrun f-l" style="width:85%">
+										<input placeholder="参数值" style="width:100%" name="requestParams[${i}].value" value='${param.exampleData}' type="text">
+										<div class="edit-interrun f-l"></div>
+									</div>
+								</div>`
+									paramObj.append(str);	
+							}
+					})
+				},
+				runApi(){
+					let sessionId = $.cookie("sessionId");
+					var url = youtest.config.global.adminUrl + "/api/apiRun";
+					axios({
+						url: url,
+						method: 'post',
+						data: $("[name='apiRunForm']").serialize(),
+						headers: {"Authorization": sessionId}
+					}).then(response => {
+						if(response.data.status=="1"&&response.data.data!=null){
+								this.result = response.data.data
+								}else if(response.data.status=="1"&&response.data.message=="账号未登录"){
+								location.href=youtest.config.global.rootUrl+"/login.html"
+							}	
+					})
+					
+				}
+			 },
+			 
+			 created() {
+				 this.host=sessionStorage.getItem("host")
+				 this.projectId=sessionStorage.getItem("projectId")
+				 this.showApiVo();
+			 }
+		 })
+		
+	 </script> 
+
+
+</body></html>

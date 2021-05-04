@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="indexHtml" ang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>后台管理</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../css/alert.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+    
+</head>
+<body class="indexBody">
+	<input type="hidden" name="projectId" value="4"/>
+<div class="con-wripper">
+ <div class="con-top clearfix">
+        <div class="left-top f-l">
+            <div class="logo-top f-l">
+            </div>
+            <div class="modname-top f-l">API RUNNER</div>
+            <div id="projectName" class="modname-top f-l">API RUNNER</div>
+        </div>
+        <div class="right-top f-r">
+            <div class="srch-top f-l">
+                <input type="text"  class="ipt-top" placeholder="搜索分组/项目/接口" />
+            </div>
+            <div class="handle-top f-l">
+                <i class="icon-top icon-collect"></i>
+                <i class="icon-top icon-plus"></i>
+                <i class="icon-top icon-doubt"></i>
+            </div>
+           <div class="ctr-top f-l">
+                <div class="btn_stretch">
+                    <a class="header-top"></a>
+                    <i class="icon-arrow"></i>
+                </div>
+                <ul class="ctrlist-top">
+                    <li class="pctr-top">
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li class="quit-top">
+                        <a href="../user/logout">退出</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>    
+    <div class="nav-interlist">
+        <ul class="clearfix">
+            <li><a href="projectList.html">项目列表</a></li>
+            <li class="active"><a href="#">接口</a></li>
+            <li><a href="testReportList.html">测试报告</a></li>
+            <li><a href="projectSet.html">项目设置</a></li>
+        </ul>
+    </div>
+    <div class="main-interlist com-module clearfix">
+    <div class="left-interlist f-l">
+            <div class="tab-interlist">
+                <div class="tabtype-interlist">
+                    <ul class="clearfix">
+                       <li ><a href="index.html">接口列表</a></li>
+                       <li class="active"><a href="index2.html">测试集合</a></li>
+                    </ul>
+                </div>
+                <div class="srchbox-interlist clearfix">
+                    <input type="text" placeholder="搜索用例" class="input-com f-l">
+                    <a href="javascript:;" class="btn-addfl btn-com f-r" id="addjh">添加集合</a>
+                </div>
+            </div>
+            <div class="list-interlist" id="listInter">
+                <ul class="type_menu">
+                    <li class="active">
+                        <div class="menu-interlist">
+                            <a href="../html/caseList.html" target="rightIframe"   @click="goAll()">
+                                <i class="icon-file"></i>
+                                <span>全部案例</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li  v-for="suite in info">
+                        <div class="menu-interlist">
+                            <a href="../html/caseList.html" target="rightIframe" @Click="goto(suite.id)">
+                                <i class="icon-file"></i>
+                                <span>{{suite.name}}</span>
+                                <div class="hanmenu-interlist active">
+                                    <i class="icon-add"></i>
+                                    <i class="icon-edit" data-target="#myModal" data-toggle="modal" @click="getSuite(suite.id)"></i>
+                                    <i class="icon-delete" @click="delSuite(suite.id)"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- 默认展开第一个套件 -->
+                        	<ul class="tmenu-interlist">
+                        		<!-- 加载此套件下的所有测试用例 -->
+	                            <li class="" v-for="cases in  suite.cases">
+	                                <a href="../html/caseEdit.html" target="rightIframe" @Click="goCase(cases.id)">
+	                                    	{{cases.name}}
+	                                    <div class="hantmenu-interlist active">
+	                                        <i class="icon-copy"></i>
+	                                        <i class="icon-delete"></i>
+	                                    </div>
+	                                </a>
+	                             </li>
+	                        </ul>
+	                  </li>
+                </ul>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                                <form class="form-horizontal">
+                                    <input name="id" v-model="suite.id" type="hidden">   <!-- 隐藏参数id -->
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">集合信息</h4>
+                                      </div>
+                                        <div class="form-group">
+                                          <label for="inputEmail3" class="col-sm-2 control-label">集合名称</label>
+                                          <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputEmail3" placeholder="请输入集合名称" name="name" v-model="suite.name" >
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">描述</label>
+                                            <div class="col-sm-10">
+                                              <input type="text" class="form-control" id="inputEmail3" placeholder="请输入描述信息" name="description" v-model="suite.description" >
+                                            </div>
+                                          </div>
+                                        <div class="form-group">
+                                          <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-primary" @click="saveSuite()" >保存</button>
+                                          </div>
+                                        </div>
+                                </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <!-- loadFrame(this); -->
+        <iframe class="rightIframe f-l" name="rightIframe" src="../html/caseList.html" onload="" scrolling="yes" frameborder="0"></iframe>
+    </div>
+    <!-- 测试集合弹窗 -->
+    <form id="addSuite">
+        <div class="dialog-addinter">
+            <div class="line-addinter form_control clearfix" >
+                <label><span>*</span>集合名称：</label>
+                <input type="text" placeholder="分类名称" class="required" data-valid="isNonEmpty" data-error="内容不能为空" name="name">
+                <span class="valid_message"></span>
+            </div>
+            <div class="line-addinter form_control clearfix describe">
+                <label>描述：</label>
+                <textarea type="text" class="path-addinter" placeholder="描述" name="description"></textarea>
+            </div>
+        </div>
+    </form>
+
+    
+   
+  
+
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+<script src="../jquery-3.4.1/jquery-3.4.1.min.js">    </script>
+<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+<script type="text/javascript" src="../js/alert.js"></script>
+<script type="text/javascript" src="../js/jquery-validate.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript"  src="../js/vue.js"> </script>
+<script type="text/javascript"  src="../js/axios.min.js"> </script>
+<script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+
+
+<script> //将项目名称设置到标题上
+   let projectName= sessionStorage.getItem("projectName");
+   var  dom1=document.getElementById("projectName");
+   dom1.innerHTML=""+projectName
+
+</script>
+<script>
+    var  vue = new Vue({
+        el: "#listInter" ,//挂载点
+        data: {
+            info:[],
+            suite:{id:"",name:"",description:""}
+        },
+        methods: {  
+            delSuite(suiteId){//删除集合
+                let url=youtest.config.global.adminUrl+"/suite/deleteSuite";
+                let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+					param.append('suiteId', suiteId)
+                //alert($.cookie("sessionId"))
+                let sessionId=$.cookie("sessionId")
+                if(!confirm('您是否确认删除此集合！')){
+                    return
+                }
+                axios({
+						url: url,
+						method: 'post',
+						data: param,
+						headers: {"Authorization": sessionId}
+					}).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.message=="删除成功"){
+                  window.location.reload();//刷新页面
+                }else{
+                   location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })   
+            },
+            goto(id){
+                
+                sessionStorage.setItem("suiteId",id);
+               
+               // location.href=youtest.config.global.rootUrl+"/apiClassificationSet.html"
+            },
+            getSuite(id){//查询套件信息
+               // sessionStorage.setItem("suiteId",id);
+                let url=youtest.config.global.adminUrl+"/suite/getSuiteById";
+                 let suiteId=id
+                 let  sessionId=$.cookie("sessionId");
+            axios.get(
+                url,{
+                 headers:{"Authorization":sessionId},
+                 params:{"suiteId":suiteId}    
+            }).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.data!=""&&result.data!=null){
+                   this.suite=result.data
+                  // sessionStorage.setItem("suiteId",this.suite.id);
+                   //sessionStorage.setItem("suiteName",this.suite.name);
+                   //sessionStorage.setItem("suiteDescription",this.suite.description);
+                }else if(result.status=="1"&&result.message=="账号未登录"){
+                    location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })
+            },
+            goAll(){
+                sessionStorage.removeItem("suiteId")
+            },
+            goCase(id){
+					sessionStorage.setItem("caseId",id)
+				},
+            // goto3(apiId){
+            //     sessionStorage.setItem("apiId",apiId);
+            // },
+            saveSuite(){//保存集合信息
+                let url=youtest.config.global.adminUrl+"/suite/saveSuite";
+                 //let suiteId=id
+                 let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+					param.append('name', this.suite.name)
+                    param.append('id', this.suite.id)
+                    param.append('description', this.suite.description)
+                 let  sessionId=$.cookie("sessionId");
+                 axios({
+						url: url,
+						method: 'post',
+						data: param,
+						headers: {
+							"Authorization": sessionId,	
+						}
+					}).then(response=>{
+                        let result=response.data;
+                        if(result.status=="1"&&result.message=="保存成功"){
+                            alert("保存成功")//刷新页面
+                        }else if(result.status=="1"&&result.message=="账号未登录"){
+                            location.href=youtest.config.global.rootUrl+"/login.html"
+                        }else{
+                            alert("保存失败")
+                        }
+                }) 
+            }
+        },
+        //进入页面直接渲染
+        created () {
+            sessionStorage.removeItem("apiClassificationId") //为了切换时默认选择全部 后续优化
+            let url=youtest.config.global.adminUrl+"/apiClassification/toIndex";
+            let projectId=sessionStorage.getItem("projectId");
+            axios.get(
+                url,{
+                 headers:{"Authorization":$.cookie("sessionId")},
+                 params:{"projectId":projectId,"tab":"2"}    
+            }).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.data!=""&&result.data!=null){
+                   this.info=result.data
+                   console.log(result.data)
+                }else if(result.status=="1"&&result.message=="账号未登录"){
+                    location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })
+        },
+    })
+</script>
+<!-- <script>
+    var  vue = new Vue({
+        el: "#myModal" ,//挂载点
+        data: {
+            suite:{}
+        },
+        methods: {  
+           
+        },
+        //进入页面直接渲染
+        created () {
+            // let url=youtest.config.global.adminUrl+"/suite/getSuiteById";
+            // let suiteId=sessionStorage.getItem("suiteId");
+            // axios.get(
+            //     url,{
+            //      headers:{"Authorization":$.cookie("sessionId")},
+            //      params:{"suiteId":suiteId}    
+            // }).then(response=>{
+            //     let result=response.data;
+            //     if(result.status=="1"&&result.data!=""&&result.data!=null){
+            //        this.suite=result.data
+            //        console.log(result.data)
+            //     }else if(result.status=="1"&&result.message=="账号未登录"){
+            //         location.href=youtest.config.global.rootUrl+"/login.html"
+            //     }
+            // })
+        },mounted () {
+            let url=youtest.config.global.adminUrl+"/suite/getSuiteById";
+            let suiteId=sessionStorage.getItem("suiteId");
+            axios.get(
+                url,{
+                 headers:{"Authorization":$.cookie("sessionId")},
+                 params:{"suiteId":suiteId}    
+            }).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.data!=""&&result.data!=null){
+                   this.suite=result.data
+                   console.log(result.data)
+                }else if(result.status=="1"&&result.message=="账号未登录"){
+                    location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })
+        }
+    })
+</script> -->
+
+  
+<script type="text/javascript" src="../js/base.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<html class="indexHtml" ang="zh-CN"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>后台管理</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../css/alert.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body class="indexBody">
+	<input name="projectId" value="4" type="hidden">
+<div class="con-wripper">
+ <div class="con-top clearfix">
+        <div class="left-top f-l">
+            <div class="logo-top f-l">
+            </div>
+            <div class="modname-top f-l">API RUNNER</div>
+            <div id="projectName" class="modname-top f-l">API RUNNER</div>
+        </div>
+        <div class="right-top f-r">
+            <div class="srch-top f-l">
+                <input class="ipt-top" placeholder="搜索分组/项目/接口" type="text">
+            </div>
+            <div class="handle-top f-l">
+                <i class="icon-top icon-collect"></i>
+                <i class="icon-top icon-plus"></i>
+                <i class="icon-top icon-doubt"></i>
+            </div>
+           <div class="ctr-top f-l">
+                <div class="btn_stretch">
+                    <a class="header-top"></a>
+                    <i class="icon-arrow"></i>
+                </div>
+                <ul class="ctrlist-top">
+                    <li class="pctr-top">
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li class="quit-top">
+                        <a href="/youtest/user/logout">退出</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>  
+      
+    <div class="nav-interlist">
+        <ul class="clearfix">
+            <li><a href="projectList.html">项目列表</a></li>
+            <li class="active"><a href="#">接口列表</a></li>
+            <li><a href="testReportList.html">测试报告</a></li>
+            <li><a href="projectSet.html">项目设置</a></li>
+        </ul>
+    </div>
+   
+    <div class="main-interlist com-module clearfix">
+        <div class="left-interlist f-l" style="height: 297px;">	
+            <div class="tab-interlist">
+                <div class="tabtype-interlist">
+                    <ul class="clearfix">     
+                        <li class="active"><a href="index.html">接口列表</a></li>
+                        <li><a href="index2.html">测试集合</a></li>
+                    </ul>
+                </div>
+                <div class="srchbox-interlist clearfix">
+					<input placeholder="搜索接口" class="input-com f-l" type="text">
+					<a href="javascript:;" class="btn-addfl btn-com f-r" id="addfl">添加分类</a>
+                </div>
+            </div>
+            <div class="list-interlist" id="listInter">
+                <ul class="type_menu">
+                    <li class="active">
+                        <div class="menu-interlist">
+                            <a href="../html/apiList.html" target="rightIframe"   @click="goAll()">
+                                <i class="icon-file"></i>
+                                <span>全部接口</span>
+                            </a>
+                        </div>
+                    </li>
+                     <li class=""  v-for="apiClassification in info">  
+                        <div class="menu-interlist">
+                            <!--  -->
+                            <a  href="../html/apiList.html" target="rightIframe"  @click="goto2(apiClassification.id)">
+                                <i class="icon-file"></i>
+                                <span>{{apiClassification.name}}</span>
+                                <div class="hanmenu-interlist active">
+                                    <i class="icon-edit"  @click="goto(apiClassification.id)"></i>
+                                    <i class="icon-delete" @click="delApiClassification(apiClassification.id)"></i>
+                                </div>
+                            </a>
+                        </div>
+                        
+                       <!-- class="tmenu-interlist" -->
+                        <ul class="tmenu-interlist">  
+                        	<!-- 加载此分类下的所有接口  -->
+                            <li class="" v-for="api in apiClassification.apis" >
+                                <a  href="../html/apiView.html" target="rightIframe" @click="goto3(api.id)">
+                                   	{{api.name}}
+                                    <div class="hantmenu-interlist active ">
+                                        <i class="icon-delete "></i>
+                                    </div>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+        <!-- loadFrame(this); -->
+       	<iframe class="rightIframe f-l" name="rightIframe" src="../html/apiList.html" onload="" scrolling="yes" style="height: 297px;" frameborder="0"></iframe>
+    </div>
+    <!-- 添加分类窗口 -->
+    <form id="addClassification">
+        <div class="dialog-addinter">
+            <div class="line-addinter form_control clearfix">
+                <label><span>*</span>分类名称：</label>
+                <input placeholder="分类名称" class="required" data-valid="isNonEmpty" data-error="内容不能为空" name="name" type="text" 
+                value="">
+                <span class="valid_message"></span>
+            </div>
+            <div class="line-addinter form_control clearfix describe">
+                <label>描述：</label>
+                <textarea type="text" class="path-addinter" placeholder="描述" name="description" value=""></textarea>
+            </div>
+        </div>
+    </form>
+
+    <form id="updateClassification">
+        <div class="dialog-addinter">
+            <div class="line-addinter form_control clearfix">
+                <label><span>*</span>分类名称：</label>
+                <input placeholder="分类名称" class="required" data-valid="isNonEmpty" data-error="内容不能为空" name="name" type="text" 
+                value="">
+                <span class="valid_message"></span>
+            </div>
+            <div class="line-addinter form_control clearfix describe">
+                <label>描述：</label>
+                <textarea type="text" class="path-addinter" placeholder="描述" name="description" value=""></textarea>
+            </div>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+<script type="text/javascript" src="../js/alert.js"></script>
+<script type="text/javascript" src="../js/jquery-validate.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript"  src="../js/vue.js"> </script>
+<script type="text/javascript"  src="../js/axios.min.js"> </script>
+<script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+<script> //将项目名称设置到标题上
+   let projectName= sessionStorage.getItem("projectName");
+   var  dom1=document.getElementById("projectName");
+   dom1.innerHTML=""+projectName
+
+</script>
+<script>
+    var  vue = new Vue({
+        el: "#listInter" ,//挂载点
+        data: {
+            info:[]
+        },
+        methods: {  
+            delApiClassification(apiClassificationId){
+                let url=youtest.config.global.adminUrl+"/apiClassification/deleteApiClassification";
+           // alert($.cookie("sessionId"))
+                let sessionId=$.cookie("sessionId")
+                if(!confirm('您是否确认删除此分类！')){
+                    return
+                }
+            axios.get(
+                    url,{
+                    headers:{"Authorization":sessionId},
+                    params:{"apiClassificationId":apiClassificationId} 
+                }).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.message=="删除成功"){
+                  window.location.reload();//刷新页面
+                }else{
+                    location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })   
+            },
+            goto(id){
+                //将项目id和host存到浏览器,方便获取
+                sessionStorage.setItem("apiClassificationId",id);
+                //跳转到index.html界面
+                location.href=youtest.config.global.rootUrl+"/apiClassificationSet.html"
+            },
+            goto2(id){
+                sessionStorage.setItem("apiClassificationId",id);
+            },
+            goAll(){
+                sessionStorage.removeItem("apiClassificationId")
+            },
+            goto3(apiId){
+                sessionStorage.setItem("apiId",apiId);
+            }
+        },
+        //进入页面直接渲染
+        created () {
+            sessionStorage.removeItem("suiteId") //为了切换时默认选择全部 后续优化
+            let url=youtest.config.global.adminUrl+"/apiClassification/toIndex";
+            let projectId=sessionStorage.getItem("projectId");
+            axios.get(
+                url,{
+                 headers:{"Authorization":$.cookie("sessionId")},
+                 params:{"projectId":projectId,"tab":"1"}    
+            }).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.data!=""&&result.data!=null){
+                   this.info=result.data
+                   //console.log(result.data)
+                }else if(result.status=="1"&&result.message=="账号未登录"){
+                    location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })
+        }
+    })
+</script>
+<script type="text/javascript" src="../js/base.js"></script>
+
+</body></html>

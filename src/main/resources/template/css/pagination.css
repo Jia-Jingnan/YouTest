@@ -1,0 +1,11 @@
+@charset "UTF-8";.m-style{position:relative;text-align:center;zoom:1;overflow:hidden;}
+.m-style:before,.m-style:after{content:"";display:table}
+.m-style:after{clear:both;overflow:hidden}
+.m-style span{float:left;margin:0 5px;width:30px;height:30px;line-height:30px;color:#bdbdbd;font-size:14px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+.m-style .active{float:left;margin:0 5px;width:30px;height:30px;line-height:30px;color:#2395f1;font-size:14px;border:1px solid #2395f1;}
+.m-style a{float:left;margin:0 5px;width:30px;height:30px;line-height:30px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;background:#fff;border:1px solid #ebebeb;color:#bdbdbd;font-size:14px}
+.m-style a:hover{color:#2395f1;border:1px solid #2395f1;}
+.m-style .next,.m-style .prev{font-family:simsun;font-size:16px;font-weight:700}
+.now,.count{padding:0 5px;color:red}
+.eg img{max-width:800px;min-height:500px}
+.m-style input{float:left;margin:0 5px;width:30px;height:30px;line-height:30px;text-align:center;background:#fff;border:1px solid #ebebeb;outline:0;color:#bdbdbd;font-size:14px}

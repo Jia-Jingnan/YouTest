@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="indexHtml" ang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>后台管理</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <link rel="stylesheet" type="text/css"  href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../css/alert.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+</head>
+<body class="indexBody">
+<div class="con-wripper">
+    <div class="con-top clearfix">
+        <div class="left-top f-l">
+            <div class="logo-top f-l">
+            </div>
+            <div class="modname-top f-l">API RUNNER</div>
+            <div id="projectName" class="modname-top f-l">API RUNNER</div>
+        </div>
+        <div class="right-top f-r">
+            <div class="srch-top f-l">
+                <input type="text"  class="ipt-top" placeholder="搜索分组/项目/接口" />
+            </div>
+            <div class="handle-top f-l">
+                <i class="icon-top icon-collect"></i>
+                <i class="icon-top icon-plus"></i>
+                <i class="icon-top icon-doubt"></i>
+            </div>
+            <div class="ctr-top f-l">
+                <div class="btn_stretch">
+                    <a class="header-top"></a>
+                    <i class="icon-arrow"></i>
+                </div>
+                <ul class="ctrlist-top">
+                    <li class="pctr-top">
+                        <a href="#">个人中心</a>
+                    </li>
+                    <li class="quit-top">
+                        <a href="#">退出</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="nav-interlist">
+        <ul class="clearfix">
+            <li><a href="projectList.html">项目列表</a></li>
+            <li><a href="index.html">接口</a></li>
+            <li><a href="testReportList.html">测试报告</a></li>
+            <li class="active"><a href="projectSet.html">个人中心</a></li>
+        </ul>
+    </div>
+    <div class="main-interlist com-module clearfix mr24">
+        <div class="item_tab">
+            <a class="tab_span" href="javascript:;">个人中心</a>
+        </div>
+        <div class="right-interlist item_main">
+            <div class="desc-interlist">
+                <div class="item_body btm-border">
+                    <a class="item_single2">
+                        <span class="item_ic"></span>
+                    </a>
+                    <span class="item2_title">个人中心</span>
+                </div>
+            </div>
+            <form id="myform">
+                <div class="form_box"> 
+                   
+                    <div class="line-addinter form_control clearfix" >
+                        <label><span>*</span>项目名称：</label>
+                        <input type="text" placeholder="项目名称" class="required" data-valid="isNonEmpty" 
+                        data-error="内容不能为空" name="name" :value="info.name">
+                        <span class="valid_message"></span>
+                    </div>
+                    <div class="line-addinter form_control clearfix" >
+                        <label>项目地址：</label>
+                        <input type="text" placeholder="请填写项目部署地址(域名或ip)" class="required" data-valid="isNonEmpty"
+                        name="host" data-error="内容不能为空" :value="info.host">
+                        <span class="valid_message"></span>
+                    </div>
+                    <div class="line-addinter form_control clearfix describe">
+                        <label>项目描述：</label>
+                        <textarea type="text" class="path-addinter required" placeholder="项目描述" name="description"
+                        class="required" data-valid="isNonEmpty" data-error="内容不能为空">{{info.description}}</textarea>
+                        <span class="valid_message"></span>
+                    </div>
+                </div>
+                <div class="btn_save"><a href="javascript:;">保 存</a></div>
+            </form>
+            <div class="del_box">
+                <div class="del_font">
+                    <h4>删除项目</h4>
+                    <p>项目一旦删除，将无法恢复数据，请谨慎操作！<br> 只有组长和管理员有权限删除项目。</p>
+                </div>
+                <a class="del_btn" href="javascript:;">删 除</a>
+            </div>
+        </div>
+    </div>
+    <div id="whether_del">
+        <div class="dialog-addinter">
+            项目一旦删除，将无法恢复数据，请谨慎操作！<br> 只有组长和管理员有权限删除项目。
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+<script type="text/javascript" src="../js/alert.js"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/jquery-validate.js"></script>
+<script type="text/javascript" src="../js/interRun.js"></script>
+<script type="text/javascript" src="../js/interfaceList.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+<script> //将项目名称设置到标题上
+    let projectName= sessionStorage.getItem("projectName");
+    var  dom1=document.getElementById("projectName");
+    dom1.innerHTML=""+projectName
+ 
+ </script>
+<script>
+    $(function(){
+        //高度计算
+        function calcHeight() {
+            var thispage = document.body.clientHeight
+            var itemmain = thispage - 246;
+            $(".item_main").height(itemmain);
+        }
+        calcHeight();
+        window.onresize=function(){
+            calcHeight();
+        }
+        //更新项目
+        $('.btn_save').click(function(){
+            let projectId=sessionStorage.getItem("projectId");
+            let url=youtest.config.global.adminUrl+"/project/"+projectId;
+            let sessionId=$.cookie("sessionId");
+            //console.log($('#myform').serialize())
+            $.ajax({
+                url:url,
+                headers:{"Authorization":sessionId},
+                data:$('#myform').serialize(),//将前端参数&&拼接
+                type:'post',
+                dataType:'json',
+                success:function(ret){
+                    if(ret.status=="1"&&ret.message=="保存成功"){
+                        location.href=youtest.config.global.rootUrl+"/index.html"
+                        //console.log($('#myform input[name="host"]'))
+                        sessionStorage.setItem("host",$('input[name="host"]').val())
+                    }else{
+                        location.href=youtest.config.global.rootUrl+"/login.html"
+                    }
+                }
+            });
+
+
+        });
+
+
+        //删除项目
+        $('.del_btn').click(function(){
+            var dialog = jqueryAlert({
+                'style'   : 'pc',
+                'title'   : '删除项目',
+                'content' :  $('#whether_del'),
+                'modal'   : true,
+                'contentTextAlign' : 'left',
+                'width'   : '620px',
+                'animateType' : 'linear',
+                'buttons' :{
+                    '取消' : function(){
+                        dialog.close();
+                    },
+                    '确定':function(){
+                        //var ifViladate = true;
+                        //var $form = $('.pcAlert').last().find('#addForm2');
+                        //ifViladate = $form.validate('submitValidate');
+                        //if(!ifViladate)return;
+                        let projectId=sessionStorage.getItem("projectId");
+                        $.ajax({
+                            headers:{"Authorization":$.cookie("sessionId")},
+                            url:youtest.config.global.adminUrl+"/project/"+projectId,
+                            //data:$('.pcAlert').serialize(),
+                            type:'delete',
+                            dataType:'json',
+                            async:false,
+                            success:function(ret){
+                                if(ret.status==1&&ret.message=="删除成功"){
+                                    location.href=youtest.config.global.rootUrl+"/projectList.html" 
+                                }else if(ret.status==1&&ret.message=="账户未登录"){
+                                    location.href=youtest.config.global.rootUrl+"/login.html" 
+
+                                }else{
+                                    dialog.close();
+                                    alert("删除失败！")
+                                }
+                                
+                            }
+                        });
+
+                    }
+                }
+            })
+        });
+    })
+</script>
+<script type="text/javascript"  src="../js/vue.js"> </script>
+<script type="text/javascript"  src="../js/axios.min.js"> </script>
+<script>
+    var  vue = new Vue({
+        el: ".form_box" ,//挂载点
+        data: {
+            info:""
+        },
+        methods: {  
+            
+        },
+        //进入页面直接渲染
+        created () {
+            sessionStorage.removeItem("suiteId") //为了切换时默认选择全部 后续优化
+            sessionStorage.removeItem("apiClassificationId") //为了切换时默认选择全部 后续优化
+            let projectId=sessionStorage.getItem("projectId");
+            let url=youtest.config.global.adminUrl+"/project/"+projectId;
+            
+            axios.get(
+                url,{
+                 headers:{"Authorization":$.cookie("sessionId")}
+                 //params:{"userId":userId}    
+            }).then(response=>{
+                let result=response.data;
+                if(result.status=="1"&&result.data!=null){
+                  this.info=result.data
+                  // console.log(result.data)
+                }else{
+                    location.href=youtest.config.global.rootUrl+"/login.html"
+                }
+            })
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="indexHtml" ang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>后台管理</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <link rel="stylesheet" type="text/css"  href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="../css/alert.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../element-ui/lib/theme-chalk/index.css">
+    <link rel="icon" type="image/x-ico" href="../images/favicon.ico"/>
+    <style>
+        .el-header, .el-footer {
+          background-color: #409EFF;
+          color: #333;
+          text-align: center;
+          line-height: 80px;
+        }
+        
+        /* .el-aside {
+          background-color: #D3DCE6;
+          color: #333;
+          text-align: center;
+          line-height: 200px;
+        } */
+        
+        .el-main {
+          background-color: rgb(238, 248, 247);
+          color: #333;
+          text-align: center;
+          line-height: 800px;
+        }
+        
+        body > .el-container {
+          margin-bottom: 40px;
+        }
+        
+        .el-container:nth-child(5) .el-aside,
+        .el-container:nth-child(6) .el-aside {
+          line-height: 260px;
+        }
+        
+        .el-container:nth-child(7) .el-aside {
+          line-height: 320px;
+        }
+      </style>
+  <style>
+    .el-row {
+      margin-bottom: 20px;
+      /* &:last-child {
+        margin-bottom: 0;
+      } */
+    }
+    .el-col {
+      border-radius: 4px;
+    }
+    .bg-purple-dark {
+      background: #c01a35;
+    }
+    .bg-purple {
+      background: #f031d6de;
+    }
+    .bg-purple-light {
+      background: #e5e9f2;
+    }
+    .grid-content {
+      border-radius: 4px;
+      min-height: 36px;
+    }
+    .row-bg {
+      padding: 10px 0;
+      background-color: #f9fafc;
+    }
+  </style>
+</head>
+<!-- pre-scrollable -->
+<body class="" >
+    
+    <div class="con-wripper" >
+        <el-container>
+            <el-header>
+                <div>
+                    <span>{{reptName}}--({{username}})</span> 
+                 </div>
+            </el-header>
+            <el-main>
+                <div style="height: 20%;"> 
+                    <el-row :gutter="20">
+                        <el-col :span="24"><div class="grid-content bg-purple">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="8%">总案例数</th>
+                                        <th width="8%">成功案例数</th>
+                                        <th width="8%">失败案例数</th>
+                                        <th width="8%">成功率</th> 
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr id="casestr" v-for="">
+                                    <td>{{totalCase}}</td> <!--总案例数据-->
+                                        <td>{{successes}}</td> <!--成功数-->
+                                        <td>{{failures}}</td> <!--失败数-->
+                                        <td >{{(successes/totalCase*100).toFixed(2)}}%</td> <!--成功率-->
+                                
+                                    </tr>
+                                </tbody>
+                            </table>
+                           
+
+                        </div></el-col>
+                     </el-row>
+                     <div id="main" style="width: 700px;height:400px;float: left;"></div>
+                     <div id="main2" style="width: 600px;height:400px;float: left;"></div>
+                  
+            </div>
+            <div style="height:80%;">
+                <div class="block" v-for="reportVo in result">
+                <table id='result_table' class="table table-condensed table-bordered table-hover">
+                    <colgroup>
+                        <col align='left' />
+                        <col align='right' />
+                        <col align='right' />
+                        <col align='right' />
+                    </colgroup>
+                    <tr  class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th colspan="5" style="align-content: center;">测试集合:{{reportVo.suiteName}}</th>  
+                    </tr>
+                    <tr id='' class="text-center success" style="font-weight: bold;font-size: 14px;">
+                        <th>用例编号</th>
+                        <th>用例名称</th>
+                        <th>接口地址</th>
+                        <th>断言结果</th>
+                        <th>执行结果</th>
+                    </tr>
+                    <tr class='failClass warning' v-for="testReport in reportVo.testReports" :style="testReport.passFlag=='succeed'?'color: #67C23A':'color: #F56C6C'" >
+                        <td>{{testReport.caseId}}</td>
+                        <td>{{testReport.caseName}}</td>
+                        <td>{{testReport.requestUrl}}</td>
+                         <td>{{testReport.passFlag}}</td>
+                        <td>{{testReport.passFlag}}</td>
+                    </tr>
+                    <!-- <tr class='failClass warning'>
+                        <td>1</td>
+                        <td>WIFI 私有接口正常请求</td>
+                        <td>{&#039;code&#039;: 200, &#039;retCode&#039;: 0}</td>
+                         <td>fall</td>
+                        <td>pass</td>
+                    </tr>
+                    <tr class='failClass warning'>
+                        <td>2</td>
+                        <td>请求</td>
+                        <td>{&#039;统一权限管理系统&#039;: &#039;pass&#039;, &#039;优先使用最新版ie和chrome浏览器&#039;: &#039;pass&#039;, &#039;code&#039;: 200}</td>
+                         <td>fall</td>
+                        <td>pass</td>
+                    </tr> -->
+                </table>
+            </div>
+            </div>
+
+            </el-main>
+          </el-container>
+    </div>
+        <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+        <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+        <script type="text/javascript" src="../js/alert.js"></script>
+        <script src="../jquery-3.4.1/jquery-3.4.1.min.js"></script> 
+        <script type="text/javascript" src="../js/common.js"></script>
+        <script type="text/javascript" src="../js/caseList.js"></script>
+        <script type="text/javascript"  src="../js/vue.js"> </script>
+        <script type="text/javascript"  src="../js/axios.min.js"> </script>
+        <script type="text/javascript" src="../js/jquery.cookie.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="../element-ui/lib/index.js"></script>
+        <script type="text/javascript"  src="../js/echarts.min.js"> </script>
+        <script>
+            var  vue = new Vue({
+                el: ".con-wripper" ,//挂载点
+                data: {
+                    result:[],
+                    totalCase:0,
+                    successes:0,
+                    failures:0,
+                    reptName:"",
+                    username:""
+                    }    
+                ,
+                methods: {  
+                   
+                },
+                created () {
+                   let reptId=sessionStorage.getItem("reptId")
+                   let url=youtest.config.global.adminUrl+"/reportRecord/getReportListByReptId";
+                       // let projectId=sessionStorage.getItem("projectId");
+                        let sessionId=$.cookie("sessionId");
+                        let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
+                        param.append('reptId', reptId)
+                        axios({
+                        url: url,
+                        method: 'post',
+                        data: param,
+                        headers: {"Authorization":sessionId}}
+                        ).then(response=>{
+                        let result=response.data;
+                        console.log(result)
+                        if(result.status=="1"&&result.message=="1"){
+                            this.result=result.data 
+                            this.reptName=result.data[0].reptName 
+                            this.username=result.data[0].username 
+                            numAll=0;
+                            numSc=0;
+                            numFa=0;
+                           
+                            for(var i=0;i<result.data.length;i++){
+                               // num1++
+                                let testReports=result.data[i].testReports
+                                //console.log(result.data.testReports)
+                                console.log(testReports)
+                                for(var j=0;j<testReports.length;j++){
+                                    numAll++
+                                    if(testReports[j].passFlag=="succeed"){
+                                        numSc++
+                                    }else{
+                                        numFa++
+                                    }
+                                    
+                                }
+                            }
+                            //console.log(11)
+                            this.totalCase=numAll
+                            this.successes=numSc
+                            this.failures=numFa
+                            //二、生成图表
+                            //1、获得生成图表的位置
+                            var myChart = echarts.init(document.getElementById('main'));
+                            //2、准备展示图表的数据
+                            var data = [{
+                                  name: '成功案例数',
+                                  value: this.successes
+                              }, {
+                                  name: '失败案例数',
+                                  value: this.failures
+                            }];
+
+                            option = {
+                                title: [{
+                                    text: '测试结果'
+                                }],
+                                color:['#33FF00','red'],
+                                series: [{
+                                    type: 'pie',
+                                    radius: '50%',
+                                    center: ['50%', '50%'],
+                                    data: data,
+                                    animation: false,
+                                    label: {
+                                        position: 'outer',
+                                        alignTo: 'none',
+                                        bleedMargin: 5
+                                    },
+                                    left: '100%',
+                                    right: '60.6667%',
+                                    top: 0,
+                                    bottom: 0
+                                }]
+                              };
+
+                            //3、使用刚指定的配置项和数据显示图表。
+                            myChart.setOption(option);
+
+                             //1、获得生成图表的位置
+                             var myChart2 = echarts.init(document.getElementById('main2'));
+                            //2、准备展示图表的数据
+                                option2 = {
+                                xAxis: {
+                                    type: 'category',
+                                    data: ['成功案例数',"失败案例数"]
+                                },
+                                yAxis: {
+                                    type: 'value'
+                                },
+                                color:['green','red'],
+                                series: [{
+                                    data: data,
+                                    type: 'bar',
+                                    itemStyle: {
+                                    normal: {
+                　　　　　　　　　　　　　　//好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
+                                        color: function(params) {
+                                            // build a color map as your need.
+                                            var colorList = [
+                                              '#33FF00','#FF0000'
+                                            ];
+                                            return colorList[params.dataIndex]
+                                        }
+                                      }
+                                    }
+                                }]
+                            };
+
+
+                            //3、使用刚指定的配置项和数据显示图表。
+                            myChart2.setOption(option2);
+                        }else if(result.status=="1"&&result.message=="1"&&result.data.length==0){
+                            //暂无数据
+                        }
+                        else if (result.status=="1"&&result.message=="账号未登录"){
+                            location.href=youtest.config.global.rootUrl+"/login.html"
+                        }
+                        }) 
+                }
+            })
+        </script>
+         <script src="../js/bootstrap.min.js"></script>
+</body>
+
+</html>
