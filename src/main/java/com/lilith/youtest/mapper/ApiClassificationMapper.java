@@ -27,7 +27,7 @@ public interface ApiClassificationMapper extends BaseMapper<ApiClassification> {
             @Result(column = "id", property = "id"),
             @Result(column = "project_id", property = "projectId"),
             @Result(column = "name", property = "name"),
-            @Result(column = "id", property = "apis",many = @Many(select = "com.lilith.youtest.ApiMapper.findApi")),
+            @Result(column = "id", property = "apis",many = @Many(select = "com.lilith.youtest.mapper.ApiMapper.findApi"))
     })
     List<ApiClassificationVO> getWithApi(Integer projectId);
 }
