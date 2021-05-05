@@ -4,7 +4,11 @@ import com.lilith.youtest.entity.Api;
 import com.lilith.youtest.mapper.ApiMapper;
 import com.lilith.youtest.service.ApiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lilith.youtest.vo.ApiListVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +21,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApiServiceImpl extends ServiceImpl<ApiMapper, Api> implements ApiService {
 
+    @Autowired
+    private ApiMapper apiMapper;
+
+    @Override
+    public List<ApiListVO> showApiListByProject(Integer projectId) {
+
+        return apiMapper.showApiListByProject(projectId);
+    }
 }

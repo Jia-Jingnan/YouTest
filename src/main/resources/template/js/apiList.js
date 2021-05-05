@@ -76,16 +76,15 @@ function pagingDataShow(pagedata,pageNum){
 $(function(){
 	var projectId =sessionStorage.getItem("projectId")
 	let sessionId=$.cookie("sessionId");
-	var apiClassificationId =sessionStorage.getItem("apiClassificationId")
+	var apiClassificationId =sessionStorage.getItem("apiClassificationId");
 	var listUrl = "";
 	var classnamestr="";
 	var classdDescription="";
 	//获取数据接口
 	if(projectId!=""){
 		listUrl = youtest.config.global.adminUrl+"/api/showApiListByProject?projectId="+projectId;
-		
 	}
-	 if(apiClassificationId!=''&&apiClassificationId!=null){
+	if(apiClassificationId!=''&&apiClassificationId!=null){
 		listUrl = youtest.config.global.adminUrl+"/api/showApiListByClassificationId?apiClassificationId="+apiClassificationId;
 	}
 	$.ajax({
@@ -95,12 +94,11 @@ $(function(){
 		type:"GET",
 		success:function(ret){
 			if(projectId!=""){
-				classnamestr="全部"
+				classnamestr="全部";
 				classdDescription="全部接口"
-				
 			}
 			if(apiClassificationId!=''&&apiClassificationId!=null&&ret.data.length>0){
-				classnamestr=ret.data[0].classificationName
+				classnamestr=ret.data[0].classificationName;
 				classdDescription=ret.data[0].classificationDescription
 			}else if(ret.data.length==0){
 				$.ajax({
@@ -123,7 +121,7 @@ $(function(){
 		$(".input-com").val(classdDescription);
 		if(ret!=null&&ret.data.length>0){
 			//分页显示数据
-			pagingDataShow(ret.data,5);
+			pagingDataShow(ret.data,3);
 		}else if(ret!=null&&ret.data.length==0){
 			$(".datatxt-interlist ul").text("暂无数据");
 		}
