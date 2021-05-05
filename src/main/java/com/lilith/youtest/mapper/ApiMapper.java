@@ -20,7 +20,7 @@ public interface ApiMapper extends BaseMapper<Api> {
     @Select("SELECT * FROM api WHERE api_classification_id = #{apiClassificationId}")
     List<Api> findApi(Integer apiClassificationId);
 
-    @Select("SELECT t1.*,t2.* FROM api t1, api_classification t2 WHERE t1.api_classification_id = t2.id AND t2.project_id = #{projectId}")
+    @Select("SELECT t1.*,t2.NAME classificationName FROM api t1, api_classification t2 WHERE t1.api_classification_id = t2.id AND t2.project_id = #{projectId}")
     List<ApiListVO> showApiListByProject(Integer projectId);
 
 }
