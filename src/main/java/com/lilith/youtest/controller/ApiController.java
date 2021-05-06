@@ -1,18 +1,16 @@
 package com.lilith.youtest.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lilith.youtest.common.CommonResult;
 import com.lilith.youtest.service.ApiService;
 import com.lilith.youtest.vo.ApiListVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.management.Query;
 import java.util.List;
 
 /**
@@ -36,6 +34,14 @@ public class ApiController {
     //todo 删除接口
 
     //todo 根据id查询api
+    @ApiOperation(value = "根据id查询api", httpMethod = "POST")
+    @PostMapping("/findApi")
+    public CommonResult findApi(Integer apiId){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id",apiId);
+        com.lilith.youtest.entity.Api api = apiService.getOne(queryWrapper);
+        return new CommonResult("1",api);
+    }
 
     @ApiOperation(value = "查询分类下的所有接口",httpMethod = "GET")
     @GetMapping("/showApiListByClassificationId")
