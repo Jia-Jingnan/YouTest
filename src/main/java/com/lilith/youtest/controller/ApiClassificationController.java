@@ -36,11 +36,11 @@ public class ApiClassificationController {
 
     //todo 编辑分类方法
 
-    @ApiOperation(value = "根据项目ID查询所有分类")
-    @GetMapping("/findAll")
+    @ApiOperation(value = "根据项目ID查询所有分类",httpMethod = "POST")
+    @PostMapping("/findAll")
     public CommonResult findAll(Integer projectId){
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("project_id","projectId");
+        queryWrapper.eq("project_id",projectId);
         List<ApiClassification> list = apiClassificationService.list(queryWrapper);
         return new CommonResult("1",list);
 

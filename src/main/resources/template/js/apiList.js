@@ -152,7 +152,7 @@ $(function(){
 
 	//添加接口的弹窗
 	$('.btn-addinter').click(function(){
-		var projectId =sessionStorage.getItem("projectId")
+		var projectId =sessionStorage.getItem("projectId");
 		let sessionId=$.cookie("sessionId");
 		var url = youtest.config.global.adminUrl+"/apiClassification/findAll";
 		//准备分类下拉框数据

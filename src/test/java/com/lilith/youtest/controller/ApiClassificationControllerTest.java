@@ -43,4 +43,14 @@ public class ApiClassificationControllerTest extends BaseTest {
 //        assertEquals("1",commonResult.getStatus());
 
     }
+
+    @Test
+    public void findAll() {
+
+        CommonResult all = apiClassificationController.findAll(2);
+        List<ApiClassification> list = (List<ApiClassification>) all.getData();
+        for (ApiClassification apiClassification : list) {
+            System.out.println(apiClassification);
+        }
+    }
 }
