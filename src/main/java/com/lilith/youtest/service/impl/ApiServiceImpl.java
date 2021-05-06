@@ -25,6 +25,11 @@ public class ApiServiceImpl extends ServiceImpl<ApiMapper, Api> implements ApiSe
     private ApiMapper apiMapper;
 
     @Override
+    public List<ApiListVO> showApiListByApiClassification(Integer apiClassificationId) {
+        return apiMapper.showApiListByApiClassification(apiClassificationId);
+    }
+
+    @Override
     public List<ApiListVO> showApiListByProject(Integer projectId) {
 
         return apiMapper.showApiListByProject(projectId);

@@ -17,4 +17,6 @@ import java.util.List;
 public interface ApiService extends IService<Api> {
 
     List<ApiListVO> showApiListByProject(Integer projectId);
+
+    List<ApiListVO> showApiListByApiClassification(Integer apiClassificationId);
 }
