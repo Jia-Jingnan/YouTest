@@ -33,9 +33,9 @@ public class ApiController {
 
     @ApiOperation(value = "查询分类下的所有接口",httpMethod = "GET")
     @GetMapping("/showApiListByClassificationId")
-    public CommonResult showApiListByApiClassification(Integer apiClassification){
+    public CommonResult showApiListByApiClassification(Integer apiClassificationId){
 
-        List<ApiListVO> apiListVOList = apiService.showApiListByApiClassification(apiClassification);
+        List<ApiListVO> apiListVOList = apiService.showApiListByApiClassification(apiClassificationId);
         return new CommonResult("1", apiListVOList);
     }
 

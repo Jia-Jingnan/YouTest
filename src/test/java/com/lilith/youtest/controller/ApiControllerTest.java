@@ -21,7 +21,7 @@ public class ApiControllerTest extends BaseTest {
 
     @Test
     public void showApiListByApiClassification() {
-        CommonResult commonResult = apiController.showApiListByApiClassification(2);
+        CommonResult commonResult = apiController.showApiListByApiClassification(3);
         List<ApiListVO> data = (List<ApiListVO>) commonResult.getData();
         for (ApiListVO api : data) {
             System.out.println(api);
