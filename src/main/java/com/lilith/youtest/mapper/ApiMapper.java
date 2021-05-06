@@ -23,7 +23,7 @@ public interface ApiMapper extends BaseMapper<Api> {
     @Select("SELECT t1.*,t2.NAME classificationName FROM api t1, api_classification t2 WHERE t1.api_classification_id = t2.id AND t2.project_id = #{projectId}")
     List<ApiListVO> showApiListByProject(Integer projectId);
 
-    @Select("SELECT t1.*, t2.NAME classificationName FROM api t1, api_classification t2 WHERE t2.id = #{apiClassificationId} AND t1.api_classification_id = t2.id")
+    @Select("SELECT t1.*,t2.NAME classificationName FROM api t1, api_classification t2 WHERE t2.id = #{apiClassificationId} AND t1.api_classification_id = t2.id")
     List<ApiListVO> showApiListByApiClassification(Integer apiClassificationId);
 
 }
