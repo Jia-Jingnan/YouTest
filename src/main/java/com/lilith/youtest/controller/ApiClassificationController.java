@@ -1,6 +1,7 @@
 package com.lilith.youtest.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lilith.youtest.common.CommonResult;
 import com.lilith.youtest.entity.ApiClassification;
 import com.lilith.youtest.service.ApiClassificationService;
@@ -34,6 +35,16 @@ public class ApiClassificationController {
     //todo 搜索接口或分类的方法，使用模糊查询
 
     //todo 编辑分类方法
+
+    @ApiOperation(value = "根据项目ID查询所有分类")
+    @GetMapping("/findAll")
+    public CommonResult findAll(Integer projectId){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("project_id","projectId");
+        List<ApiClassification> list = apiClassificationService.list(queryWrapper);
+        return new CommonResult("1",list);
+
+    }
 
     @ApiOperation(value = "删除分类",httpMethod = "DELETE")
     @DeleteMapping("/{apiClassificationId}")
