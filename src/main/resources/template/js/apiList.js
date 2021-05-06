@@ -74,7 +74,7 @@ function pagingDataShow(pagedata,pageNum){
 
 
 $(function(){
-	var projectId =sessionStorage.getItem("projectId")
+	var projectId =sessionStorage.getItem("projectId");
 	let sessionId=$.cookie("sessionId");
 	var apiClassificationId =sessionStorage.getItem("apiClassificationId");
 	var listUrl = "";
@@ -111,7 +111,7 @@ $(function(){
 							$(".input-com").val(ret2.data.description);
 						}
 						else if(ret2.status=="1"&&ret2.message=="账号未登录"){
-							location.href=youtest.config.global.rootUrl+"/login.html"
+							location.href=youtest.config.global.htmlUrl+"/login.html"
 						}
 					}
 				});
@@ -126,7 +126,7 @@ $(function(){
 			$(".datatxt-interlist ul").text("暂无数据");
 		}
 		else if(ret.status=="1"&&ret.message=="账号未登录"){
-				location.href=youtest.config.global.rootUrl+"/login.html"
+				location.href=youtest.config.global.htmlUrl+"/login.html"
 			}
 		}
 	});
@@ -171,10 +171,10 @@ $(function(){
 				$("[name='apiClassificationId']").html();
 				$("[name='apiClassificationId']").html(options);
 			}else if(ret.status=="1"&&ret.message=="账号未登录"){
-				location.href=youtest.config.global.rootUrl+"/login.html"
+				location.href=youtest.config.global.htmlUrl+"/login.html"
 				//alert(ret.msg);
 			}else if ( ret.data.length==0) {
-					alert("无接口分类信息，请先添加接口分类信息！")
+					alert("无接口分类信息，请先添加接口分类信息！");
 					return ;
 			}
 			var dialog = jqueryAlert({
@@ -207,7 +207,7 @@ $(function(){
 			        				dialog.close();
 			        				window.location.reload();
 			        			}else if(ret.status=="1"&&ret.message=="账号未登录"){
-									location.href=youtest.config.global.rootUrl+"/login.html"
+									location.href=youtest.config.global.htmlUrl+"/login.html"
 			        				//alert(ret.msg);
 			        			}
 			        		}

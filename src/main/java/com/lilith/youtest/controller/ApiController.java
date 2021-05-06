@@ -31,6 +31,12 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
+    //todo 添加接口（查询接口分类的name）
+
+    //todo 删除接口
+
+    //todo 根据id查询api
+
     @ApiOperation(value = "查询分类下的所有接口",httpMethod = "GET")
     @GetMapping("/showApiListByClassificationId")
     public CommonResult showApiListByApiClassification(Integer apiClassificationId){
