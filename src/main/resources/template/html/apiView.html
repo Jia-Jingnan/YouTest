@@ -156,14 +156,14 @@
 			 },
 			 //进入页面直接渲染
 			 created () {
-				let url=youtest.config.global.adminUrl+"/api/findApi";
+				let url=youtest.config.global.adminUrl+"/api/toApiView";
 				let apiId=sessionStorage.getItem("apiId")
 				let sessionId=$.cookie("sessionId");
 				let data={'apiId':apiId} ;
 				sessionStorage.removeItem("jsonParam") //每次进入api界面时先删除此jsonParam
 				axios({
 					url: url,
-					method: 'post',
+					method: 'get',
 					params: data,
 					headers: {"Authorization":sessionId}
 						 }

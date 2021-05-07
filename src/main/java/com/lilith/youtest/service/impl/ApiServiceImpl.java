@@ -5,6 +5,7 @@ import com.lilith.youtest.mapper.ApiMapper;
 import com.lilith.youtest.service.ApiService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lilith.youtest.vo.ApiListVO;
+import com.lilith.youtest.vo.ApiVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,11 @@ import java.util.List;
  */
 @Service
 public class ApiServiceImpl extends ServiceImpl<ApiMapper, Api> implements ApiService {
+
+    @Override
+    public ApiVO findApiViewVO(Integer apiId) {
+        return apiMapper.findApiViewVO(apiId);
+    }
 
     @Autowired
     private ApiMapper apiMapper;
