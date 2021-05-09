@@ -170,7 +170,7 @@
 					 ).then(response=>{
 						let result=response.data;
 						if(result.status=="1"&&result.data!=null){
-							this.info=result.data
+							this.info=result.data;
 							let requestParams=result.data.requestParams
 							for(var i=0;i<requestParams.length;i++){
 								let param=requestParams[i]
