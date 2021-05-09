@@ -4,6 +4,9 @@ import com.lilith.youtest.entity.Api;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lilith.youtest.vo.ApiListVO;
 import com.lilith.youtest.vo.ApiVO;
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -28,6 +31,10 @@ public interface ApiMapper extends BaseMapper<Api> {
     List<ApiListVO> showApiListByApiClassification(Integer apiClassificationId);
 
     @Select("SELECT t1.*, t2.username createUsername from api t1, user t2 where t1.create_user = t2.id and t1.id = #{apiId}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "requestParams", column = "id", many = @Many(select="com.lilith.youtest.mapper.ApiRequestParamMapper.findAll"))
+    })
     ApiVO findApiViewVO(Integer apiId);
 
 }
