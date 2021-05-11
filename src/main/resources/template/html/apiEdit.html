@@ -301,27 +301,28 @@
 				},
 				saveApi:function(){
 					//保存按钮
-					//$(".comfirm-interedit").find(".btn-com").click(function(){
+					$(".comfirm-interedit").find(".btn-com").click(function() {
 						let sessionId = $.cookie("sessionId");
-						console.log("ssssss");
-						var thisFunction=this;
+						// alert(ssssss);
+						var thisFunction = this;
 						$.ajax({
-							url:youtest.config.global.adminUrl+"/api/edit",
-							headers:{"Authorization":sessionId},
-							data:$("[name='apiEditForm']").serialize(),
-							type:'post',
-							dataType:'json',
-							success:function(ret){
+							url: youtest.config.global.adminUrl + "/api/edit",
+							headers: {"Authorization": sessionId},
+							data: $("[name='apiEditForm']").serialize(),
+							type: 'put',
+							dataType: 'json',
+							success: function (ret) {
 								//console.log($("[name='apiEditForm']").serialize())
-								if(ret!=null&&ret.message!="账号未登录"){
+								if (ret != null && ret.message != "账号未登录") {
 									alert(ret.message);
 									window.location.reload();
-									
-								}else if(ret.message=="账号未登录"){
-									location.href=youtest.config.global.rootUrl+"/login.html"
+
+								} else if (ret.message == "账号未登录") {
+									location.href = youtest.config.global.rootUrl + "/login.html"
 								}
 							}
 						});
+					});
 
 				}
 			},
@@ -329,6 +330,7 @@
 			created() {
 				this.showClassification();
 				this.showApiVo();
+				// this.saveApi();
 			}
 		})
 	</script>
