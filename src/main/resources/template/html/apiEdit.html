@@ -56,13 +56,13 @@
 							<div class="ipt-interedit">
 								<select name="method" id="" class="reqtype-interedit"
 									style="width:15%;margin-right:0;">
-									<option value="get" :selected="apiVo.method=='get'">GET</option>
-									<option value="post" :selected="apiVo.method=='post'">POST</option>
-									<option value="put" :selected="apiVo.method=='put'">PUT</option>
-									<option value="delete" :selected="apiVo.method=='delete'">DELETE</option>
-									<option value="head" :selected="apiVo.method=='head'">HEAD</option>
-									<option value="option" :selected="apiVo.method=='option'">OPTION</option>
-									<option value="patch" :selected="apiVo.method=='patch'">PATCH</option>
+									<option value="get" :selected="apiVo.method=='GET'">GET</option>
+									<option value="post" :selected="apiVo.method=='POST'">POST</option>
+									<option value="put" :selected="apiVo.method=='PUT'">PUT</option>
+									<option value="delete" :selected="apiVo.method=='DELETE'">DELETE</option>
+									<option value="head" :selected="apiVo.method=='HEAD'">HEAD</option>
+									<option value="option" :selected="apiVo.method=='OPTION'">OPTION</option>
+									<option value="patch" :selected="apiVo.method=='PATCH'">PATCH</option>
 								</select>
 							</div>
 						</div>
@@ -206,11 +206,11 @@
 			methods: {
 				
 				showClassification() {//查询api分类的方法
-					var projectId = sessionStorage.getItem("projectId")
+					var projectId = sessionStorage.getItem("projectId");
 					let sessionId = $.cookie("sessionId");
 					var url = youtest.config.global.adminUrl + "/apiClassification/findAll";
-					let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
-					param.append('projectId', projectId)
+					let param = new URLSearchParams();  //解决axios使用post用data传参后台无法获取的问题
+					param.append('projectId', projectId);
 					axios({
 						url: url,
 						method: 'post',
@@ -225,44 +225,45 @@
 					})
 				},
 				showApiVo:function() { //查询api基本信息的方法
-					var apiId = sessionStorage.getItem("apiId")
+					var apiId = sessionStorage.getItem("apiId");
 					let sessionId = $.cookie("sessionId");
 					
-					var url = youtest.config.global.adminUrl + "/api/findApi";
-					let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
-					param.append('apiId', apiId)
+					var url = youtest.config.global.adminUrl + "/api/toApiView";
+					// let param = new URLSearchParams(); //解决axios使用post用data传参后台无法获取的问题
+					// param.append('apiId', apiId);
+					let data={'apiId':apiId};
 					axios({
 						url: url,
-						method: 'post',
-						data: param,
+						method: 'get',
+						params: data,
 						headers: {
 							"Authorization": sessionId,	
 						}
 					}).then(response => {
-						this.apiVo = response.data.data
+						this.apiVo = response.data.data;
 						if(response.data.status==1&&response.data.message=="账号未登录"){
 							location.href=youtest.config.global.rootUrl+"/login.html"
 						}
-						let requestParams=this.apiVo.requestParams
+						let requestParams=this.apiVo.requestParams;
 							var num=0;
 							var queryNum=0;
 							var bodyNum=0;
 							var headerNum=0;
 							for(var i=0;i<requestParams.length;i++){
-								let param=requestParams[i]
-								let paramName=""
-								let paramObj=""
+								let param=requestParams[i];
+								let paramName="";
+								let paramObj="";
 								if(param.type=="1"){
-									paramName="queryParams"	//路径上的参数
-									paramObj=$('#reqpQuery .reqpline-interedit')
+									paramName="queryParams";//路径上的参数
+									paramObj=$('#reqpQuery .reqpline-interedit');
 									num=queryNum++;
 								}else if(param.type=="2"){
-									paramName="bodyParams"	//body参数
-									paramObj=$('#reqpBody .reqpline-interedit')
+									paramName="bodyParams";	//body参数
+									paramObj=$('#reqpBody .reqpline-interedit');
 									num=bodyNum++;
 								}else if(param.type=="3"){
-									paramName="headerParams"//头部参数
-									paramObj=$('#reqpHeaders .reqpline-interedit')
+									paramName="headerParams";//头部参数
+									paramObj=$('#reqpHeaders .reqpline-interedit');
 									num=headerNum++;
 								 }
 								let str=`
@@ -286,7 +287,7 @@
 									paramObj.append(str);	
 								}
 								 else if(param.type=="4"){
-									this.jsonParam=param.exampleData
+									this.jsonParam=param.exampleData;
 									var toAddHtml = "<div class='basicinfo-interpre reqparamsset-interedit'>"
 										+"<div class='reqplist-interedit'>"
 										+"<textarea name='bodyRawParams[0].exampleData' id='' class='remark-interedit'>"+this.jsonParam+"</textarea>"
