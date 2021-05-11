@@ -3,6 +3,7 @@ package com.lilith.youtest.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lilith.youtest.common.CommonResult;
+import com.lilith.youtest.service.ApiRequestParamService;
 import com.lilith.youtest.service.ApiService;
 import com.lilith.youtest.vo.ApiListVO;
 import com.lilith.youtest.vo.ApiVO;
@@ -30,9 +31,32 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
+    @Autowired
+    private ApiRequestParamService apiRequestParamService;
+
     //todo 添加接口（查询接口分类的name）
 
     //todo 删除接口
+
+    @ApiOperation(value = "编辑接口方法",httpMethod = "PUT")
+    @PutMapping("/edit")
+    public CommonResult toApiEdit(ApiVO apiEdit){
+        //1.直接根据apiId进行更新
+        apiService.updateById(apiEdit);
+        //2.删除原来的数据
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("api_id",apiEdit.getId());
+        apiRequestParamService.remove(queryWrapper);
+        //3.插入新的数据
+        apiEdit.getRequestParams().addAll(apiEdit.getQueryParams());
+        apiEdit.getRequestParams().addAll(apiEdit.getBodyParams());
+        apiEdit.getRequestParams().addAll(apiEdit.getBodyRawParams());
+        apiEdit.getRequestParams().addAll(apiEdit.getHeaderParams());
+        apiRequestParamService.saveBatch(apiEdit.getRequestParams());
+        return new CommonResult("1","更新成功");
+
+    }
+
 
     @ApiOperation(value = "根据id查询api及创建人信息", httpMethod = "GET")
     @GetMapping("/toApiView")

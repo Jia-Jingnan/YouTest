@@ -159,7 +159,7 @@
 				let url=youtest.config.global.adminUrl+"/api/toApiView";
 				let apiId=sessionStorage.getItem("apiId")
 				let sessionId=$.cookie("sessionId");
-				let data={'apiId':apiId} ;
+				let data={'apiId':apiId};
 				sessionStorage.removeItem("jsonParam") //每次进入api界面时先删除此jsonParam
 				axios({
 					url: url,

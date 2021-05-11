@@ -204,7 +204,6 @@
 				jsonParam:""
 			},
 			methods: {
-				
 				showClassification() {//查询api分类的方法
 					var projectId = sessionStorage.getItem("projectId");
 					let sessionId = $.cookie("sessionId");
@@ -275,14 +274,14 @@
 											style="width:18%" type="text">
 										<select name="${paramName}[${num}].paramType" id="" style="width:12%">
 											<option value="string" ${param.paramType=='string'?'selected':""}>string</option>
-											<option value="int" ${param.paramType=='int'?'selected':""}>int</option> 
+											<option value="int" ${param.paramType=='int'?'selected':""}>int</option>
 										</select>
 										<textarea name="${paramName}[${num}].exampleData" id="" value='${param.exampleData}' placeholder="参数示例"
 											style="width:20%">${param.exampleData}</textarea>
 										<textarea name="${paramName}[${num}].description" id="" value="${param.description}" placeholder="备注"
 											style="width:25%">${param.description}</textarea>
 										<i class="icon icon-delete f-l"></i>
-									</div>`
+									</div>`;
 								if(param.type!="4"){
 									paramObj.append(str);	
 								}
@@ -304,7 +303,7 @@
 					//保存按钮
 					//$(".comfirm-interedit").find(".btn-com").click(function(){
 						let sessionId = $.cookie("sessionId");
-						console.log("ssssss")
+						console.log("ssssss");
 						var thisFunction=this;
 						$.ajax({
 							url:youtest.config.global.adminUrl+"/api/edit",
@@ -323,7 +322,6 @@
 								}
 							}
 						});
-					//});
 
 				}
 			},
@@ -331,20 +329,6 @@
 			created() {
 				this.showClassification();
 				this.showApiVo();
-				// let url = youtest.config.global.adminUrl + "/project/toList";
-				// let userId = sessionStorage.getItem("userId");
-				// axios.get(
-				// 	url, {
-				// 	headers: { "Authorization": $.cookie("sessionId") },
-				// 	params: { "userId": userId }
-				// }).then(response => {
-				// 	let result = response.data;
-				// 	if (result.status == "1" && result.data != null) {
-				// 		this.info = result.data
-				// 	} else {
-				// 		location.href = youtest.config.global.rootUrl + "/login.html"
-				// 	}
-				// })
 			}
 		})
 	</script>
