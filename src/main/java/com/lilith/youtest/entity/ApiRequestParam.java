@@ -1,6 +1,7 @@
 package com.lilith.youtest.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -46,6 +47,10 @@ public class ApiRequestParam implements Serializable {
 
     @ApiModelProperty(value = "字段描述")
     private String description;
+
+    // 数据库中不存在该字段，临时字段，仅做封装数据使用
+    @TableField(exist = false)
+    private String value;
 
 
 }
