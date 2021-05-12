@@ -56,13 +56,13 @@
 							<div class="ipt-interedit">
 								<select name="method" id="" class="reqtype-interedit"
 									style="width:15%;margin-right:0;">
-									<option value="get" :selected="apiVo.method=='GET'">GET</option>
-									<option value="post" :selected="apiVo.method=='POST'">POST</option>
-									<option value="put" :selected="apiVo.method=='PUT'">PUT</option>
-									<option value="delete" :selected="apiVo.method=='DELETE'">DELETE</option>
-									<option value="head" :selected="apiVo.method=='HEAD'">HEAD</option>
-									<option value="option" :selected="apiVo.method=='OPTION'">OPTION</option>
-									<option value="patch" :selected="apiVo.method=='PATCH'">PATCH</option>
+									<option value="GET" :selected="apiVo.method=='GET'">GET</option>
+									<option value="POST" :selected="apiVo.method=='POST'">POST</option>
+									<option value="PUT" :selected="apiVo.method=='PUT'">PUT</option>
+									<option value="DELETE" :selected="apiVo.method=='DELETE'">DELETE</option>
+									<option value="HEAD" :selected="apiVo.method=='HEAD'">HEAD</option>
+									<option value="OPTION" :selected="apiVo.method=='OPTION'">OPTION</option>
+									<option value="PATCH" :selected="apiVo.method=='PATCH'">PATCH</option>
 								</select>
 							</div>
 						</div>
@@ -301,7 +301,7 @@
 				},
 				saveApi:function(){
 					//保存按钮
-					$(".comfirm-interedit").find(".btn-com").click(function() {
+					// $(".comfirm-interedit").find(".btn-com").click(function() {
 						let sessionId = $.cookie("sessionId");
 						// alert(ssssss);
 						var thisFunction = this;
@@ -322,7 +322,7 @@
 								}
 							}
 						});
-					});
+					// });
 
 				}
 			},

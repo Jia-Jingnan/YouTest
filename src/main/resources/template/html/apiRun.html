@@ -28,13 +28,13 @@
         			<div class="envirset-interrun">
 						<div class="line-interedit line-interrun line-com clearfix">
 							<select style="width:10%;" name="method" disabled="disabled">
-									<option value="get" :selected="apiVo.method=='get'">GET</option>
-									<option value="post" :selected="apiVo.method=='post'">POST</option>
-									<option value="put" :selected="apiVo.method=='put'">PUT</option>
-									<option value="delete" :selected="apiVo.method=='delete'">DELETE</option>
-									<option value="head" :selected="apiVo.method=='head'">HEAD</option>
-									<option value="option" :selected="apiVo.method=='option'">OPTION</option>
-									<option value="patch" :selected="apiVo.method=='patch'">PATCH</option>
+									<option value="GET" :selected="apiVo.method=='GET'">GET</option>
+									<option value="POST" :selected="apiVo.method=='POST'">POST</option>
+									<option value="PUT" :selected="apiVo.method=='PUT'">PUT</option>
+									<option value="DELETE" :selected="apiVo.method=='DELETE'">DELETE</option>
+									<option value="HEAD" :selected="apiVo.method=='HEAD'">HEAD</option>
+									<option value="OPTION" :selected="apiVo.method=='OPTION'">OPTION</option>
+									<option value="PATCH" :selected="apiVo.method=='PATCH'">PATCH</option>
 							</select>
 							<div class="ipt-interedit f-l" style="margin-left:5px;width:30%;">
 								<input class="iptenvir-interrun" :value="host" disabled="disabled" type="text">
@@ -209,15 +209,17 @@
 			
 			 methods: {
 				showApiVo() { //查询api基本信息的方法
-					var apiId = sessionStorage.getItem("apiId")
+					var apiId = sessionStorage.getItem("apiId");
 					let sessionId = $.cookie("sessionId");
-					var url = youtest.config.global.adminUrl + "/api/findApi";
-					let param = new URLSearchParams()  //解决axios使用post用data传参后台无法获取的问题
-					param.append('apiId', apiId)
+					var url = youtest.config.global.adminUrl + "/api/toApiView";
+					// let param = new URLSearchParams() ; //解决axios使用post用data传参后台无法获取的问题
+					// param.append('apiId', apiId);
+					let data={'apiId':apiId};
 					axios({
 						url: url,
-						method: 'post',
-						data: param,
+						method: 'get',
+						// data: param,
+						params: data,
 						headers: {
 							"Authorization": sessionId,	
 						}
