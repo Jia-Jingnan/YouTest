@@ -2,10 +2,12 @@ package com.lilith.youtest.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lilith.youtest.common.CommonResult;
 import com.lilith.youtest.service.ApiRequestParamService;
 import com.lilith.youtest.service.ApiService;
 import com.lilith.youtest.vo.ApiListVO;
+import com.lilith.youtest.vo.ApiResponseVO;
 import com.lilith.youtest.vo.ApiVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +39,15 @@ public class ApiController {
     //todo 添加接口（查询接口分类的name）
 
     //todo 删除接口
+
+    @ApiOperation(value = "接口运行方法", httpMethod = "POST")
+    @PostMapping("/run")
+    public CommonResult run(ApiVO apiRunVO) throws JsonProcessingException {
+
+        ApiResponseVO apiRunResult = apiService.run(apiRunVO);
+
+        return new CommonResult("1",apiRunResult,"请求成功");
+    }
 
     @ApiOperation(value = "编辑接口方法",httpMethod = "PUT")
     @PutMapping("/edit")
