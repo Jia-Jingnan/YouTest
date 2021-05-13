@@ -48,8 +48,9 @@ public class ApiServiceImpl extends ServiceImpl<ApiMapper, Api> implements ApiSe
     @Override
     public ApiResponseVO run(ApiVO apiRunVO) throws JsonProcessingException {
 
-        String url = apiRunVO.getHost() + apiRunVO.getUrl();
+        String url = "http://" + apiRunVO.getHost() + apiRunVO.getUrl();
         // URL url1 = new URL(url);
+        System.out.println(url);
         String method = apiRunVO.getMethod();
         List<ApiRequestParam> list = apiRunVO.getRequestParams();
         LinkedMultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
