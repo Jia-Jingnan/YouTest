@@ -1,6 +1,7 @@
 package com.lilith.youtest.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lilith.youtest.common.CommonResult;
 import com.lilith.youtest.entity.ApiClassification;
@@ -76,6 +77,14 @@ public class ApiClassificationController {
         } else {
             return new CommonResult("0","缺少项目ID");
         }
+    }
+
+    @PostMapping("/add2")
+    public CommonResult add2(@RequestBody String jsonStr){
+        // 将jsonStr转成Java对象
+        ApiClassification apiClassification = JSON.parseObject(jsonStr,ApiClassification.class);
+        apiClassificationService.save(apiClassification);
+        return new CommonResult("1","新增分类成功");
     }
 
     @ApiOperation(value = "查询所有分类下的接口", httpMethod = "GET")
