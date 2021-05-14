@@ -37,8 +37,8 @@ import java.util.List;
 @Service
 public class ApiServiceImpl extends ServiceImpl<ApiMapper, Api> implements ApiService {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    //@Autowired
+    // private RestTemplate restTemplate;
 
     @Override
     public ApiVO findApiViewVO(Integer apiId) {
@@ -46,51 +46,91 @@ public class ApiServiceImpl extends ServiceImpl<ApiMapper, Api> implements ApiSe
     }
 
     @Override
-    public ApiResponseVO run(ApiVO apiRunVO) throws JsonProcessingException {
-
+    public ApiResponseVO run(ApiVO apiRunVO) {
+        //远程调用  restTempplate HTTP发送get、post、put、delete请求
+        RestTemplate restTemplate = new RestTemplate();
         String url = "http://" + apiRunVO.getHost() + apiRunVO.getUrl();
-        // URL url1 = new URL(url);
-        System.out.println(url);
         String method = apiRunVO.getMethod();
         List<ApiRequestParam> list = apiRunVO.getRequestParams();
-        LinkedMultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
-        LinkedMultiValueMap<String,String> bodyParams = new LinkedMultiValueMap<>();
-
-        for (ApiRequestParam apiRequestParam : list){
-            if (apiRequestParam.getType() == 3){ // 头
-                headers.add(apiRequestParam.getName(),apiRequestParam.getValue());
-            } else { // body
-                // type=2，4  如果此时type=1没有处理
-                bodyParams.add(apiRequestParam.getName(),apiRequestParam.getValue());
-            }
-        }
-        HttpEntity httpEntity = null;
-        ResponseEntity responseEntity = null;
-        ApiResponseVO apiResponseVO = new ApiResponseVO();
-
-        // 远程调用接口
+        LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+        LinkedMultiValueMap<String, String> bodyParams = new LinkedMultiValueMap<String, String>();
+        String paramStr = "?";
+        String bodyParamsStr = null;
+        ApiResponseVO apiRunResult = new ApiResponseVO();
         try {
-            if ("GET".equalsIgnoreCase(method)){
+            for (ApiRequestParam apiRequestParam : list) {
+                // 将不同的请求信息循环放入对应的类型中 1. param --2.body  --3.head --4.json格式的请求体
+                if(apiRequestParam.getType() == 1){
+                    paramStr += apiRequestParam.getName()+"="+apiRequestParam.getValue()+"&";
+                }
+                if (apiRequestParam.getType() == 3) {
+                    // 头 3
+                    headers.add(apiRequestParam.getName(), apiRequestParam.getValue());
+                } else if(apiRequestParam.getType()==4){
+                    bodyParamsStr = apiRequestParam.getValue();
+                } else if (apiRequestParam.getType()==2){
+                    // body 2
+                    bodyParams.add(apiRequestParam.getName(), apiRequestParam.getValue());
+                }
+            }
+        }catch (Exception e){
+            apiRunResult.setStatusCode("999");
+            apiRunResult.setHeaders("");
+            apiRunResult.setBody("请求参数不正确");
+            // log.info("apiRequestParam中的参数异常{}",e);
+            return apiRunResult;
+        }
+
+        // paramtype=1时，去掉url最后一个&
+        if(!"?".equals(paramStr)){
+            paramStr = paramStr.substring(0,paramStr.lastIndexOf("&"));
+        }
+        System.out.println("================"+paramStr);
+        // httpEntity 代表底层流的基本实体。通常是在http报文中获取的实体
+        HttpEntity httpEntity = new HttpEntity(bodyParams, headers);
+        // 给responseEntity 赋个默认值 POST 请求
+        ResponseEntity responseEntity = null;
+
+        try {
+            if ("get".equalsIgnoreCase(method)) {
                 httpEntity = new HttpEntity(headers);
-                responseEntity = restTemplate.exchange(url, HttpMethod.GET,httpEntity,String.class);
-                apiResponseVO.setStatusCode(responseEntity.getStatusCodeValue() + "");
-                HttpHeaders headersResult = responseEntity.getHeaders();
-                // 将java转成json
-                // apiResponseVO.setHeaders(new ObjectMapper().writeValueAsString(headersResult));
-                apiResponseVO.setHeaders(JSON.toJSONString(headersResult));
-                apiResponseVO.setBody(responseEntity.getBody().toString());
-            } else if ("POST".equalsIgnoreCase(method)){
-                httpEntity = new HttpEntity(bodyParams,headers);
-                responseEntity = restTemplate.exchange(url,HttpMethod.POST,httpEntity,String.class);
+                responseEntity = restTemplate.exchange(url+paramStr, HttpMethod.GET, httpEntity, String.class);
+            }
+            if ("post".equalsIgnoreCase(method)) {
+                if (bodyParamsStr !=null && bodyParamsStr != ""){
+                    // json 格式的post请求  4 类型
+                    httpEntity = new HttpEntity(bodyParamsStr, headers);
+                    responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+                }else{
+                    // 执行请求并返回结果  2类型
+                    httpEntity = new HttpEntity(bodyParams, headers);
+                    responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
+                }
+            }
+            if ("put".equalsIgnoreCase(method)) {
+                httpEntity = new HttpEntity(bodyParams, headers);
+                // 执行请求并返回结果
+                responseEntity = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, String.class);
+            }
+            if ("delete".equalsIgnoreCase(method)) {
+                httpEntity = new HttpEntity(bodyParams, headers);
+                // 执行请求并返回结果
+                responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, httpEntity, String.class);
             }
         } catch (HttpStatusCodeException e) {
-            e.printStackTrace();
-            // 注意此时有调用异常情况需要处理，异常可能没有body
-            apiResponseVO.setStatusCode(e.getStatusCode() + "");
-            apiResponseVO.setHeaders(JSON.toJSONString(e.getResponseHeaders()));
-            apiResponseVO.setBody(e.getResponseBodyAsString());
+            // 注意此时有调用异常，往往没有body
+            apiRunResult.setStatusCode(e.getStatusCode() + "");
+            apiRunResult.setHeaders(JSON.toJSONString(e.getResponseHeaders()));
+            apiRunResult.setBody(e.getResponseBodyAsString());
+            return apiRunResult;
         }
-        return apiResponseVO;
+        apiRunResult.setStatusCode(responseEntity.getStatusCode() + "");
+        HttpHeaders headersResult = responseEntity.getHeaders();
+        // spring 框架自带的java——》string
+        // apiRunResult.setHeaders(new ObjectMapper().writeValueAsString(headersResult));
+        apiRunResult.setHeaders(JSON.toJSONString(headersResult));
+        apiRunResult.setBody(responseEntity.getBody().toString());
+        return apiRunResult;
     }
 
     @Autowired

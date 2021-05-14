@@ -212,13 +212,13 @@ $(function(){
 	$(".btn-send").click(function(){
 		let sessionId=$.cookie("sessionId");
 		$.ajax({
-			url:youtest.config.global.adminUrl+"/api/apiRun",
+			url:youtest.config.global.adminUrl+"/api/run",
 			headers:{"Authorization":sessionId},
 			data:$("[name='apiRunForm']").serialize(),
 			type:'post',
 			dataType:'json',
 			success:function(ret){
-				var colorStr="rgb(0, 0, 255)"
+				var colorStr="rgb(0, 0, 255)";
 				if(ret.status=="1"&&ret.data!=null){
 					if(ret.status=="1"&&ret.data.statusCode=="200"){
 						var colorStr="rgb(0, 204, 0)"

@@ -264,7 +264,7 @@
 				},
 				runApi(){
 					let sessionId = $.cookie("sessionId");
-					var url = youtest.config.global.adminUrl + "/api/apiRun";
+					var url = youtest.config.global.adminUrl + "/api/run";
 					axios({
 						url: url,
 						method: 'post',
@@ -274,7 +274,7 @@
 						if(response.data.status=="1"&&response.data.data!=null){
 								this.result = response.data.data
 								}else if(response.data.status=="1"&&response.data.message=="账号未登录"){
-								location.href=youtest.config.global.rootUrl+"/login.html"
+								location.href=youtest.config.global.htmlUrl+"/login.html"
 							}	
 					})
 					
