@@ -271,15 +271,15 @@
 										<input name="${paramName}[${num}].apiId" value="${param.apiId}" type="hidden">
 										<input name="${paramName}[${num}].type" value="${param.type}" type="hidden">
 										<input placeholder="name" name="${paramName}[${num}].name" value="${param.name}"
-											style="width:18%" type="text">
-										<select name="${paramName}[${num}].paramType" id="" style="width:12%">
+											style="width:20%" type="text">
+										<select name="${paramName}[${num}].paramType" id="" style="width:10%">
 											<option value="string" ${param.paramType=='string'?'selected':""}>string</option>
 											<option value="int" ${param.paramType=='int'?'selected':""}>int</option>
 										</select>
 										<textarea name="${paramName}[${num}].exampleData" id="" value='${param.exampleData}' placeholder="参数示例"
-											style="width:20%">${param.exampleData}</textarea>
+											style="width:30%">${param.exampleData}</textarea>
 										<textarea name="${paramName}[${num}].description" id="" value="${param.description}" placeholder="备注"
-											style="width:25%">${param.description}</textarea>
+											style="width:15%">${param.description}</textarea>
 										<i class="icon icon-delete f-l"></i>
 									</div>`;
 								if(param.type!="4"){
