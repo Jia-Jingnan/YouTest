@@ -81,8 +81,9 @@ public class ApiClassificationController {
 
     @PostMapping("/add2")
     public CommonResult add2(@RequestBody String jsonStr){
+        String value = jsonStr.substring(jsonStr.indexOf("[")+1,jsonStr.indexOf("]") + 1);
         // 将jsonStr转成Java对象
-        ApiClassification apiClassification = JSON.parseObject(jsonStr,ApiClassification.class);
+        ApiClassification apiClassification = JSON.parseObject(value ,ApiClassification.class);
         apiClassificationService.save(apiClassification);
         return new CommonResult("1","新增分类成功");
     }

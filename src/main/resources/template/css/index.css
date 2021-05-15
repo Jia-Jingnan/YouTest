@@ -1,4 +1,4 @@
-@charset 'utf-8';
+@charset "utf-8";
 html,body,div,ul,li,p,span,a,input,strong,textarea,h1,h2,h3,h4,h5,h6,dl,dt,dd,ol,pre,form,fieldset,blockquote{margin:0;padding:0;}
 table,td,tr,th{font-size:12px;}
 .datatxt-interlist ul li{font-size:12px;}
@@ -61,14 +61,14 @@ input.disabled{cursor:not-allowed;background-color:#f7f7f7;}
     width: 174px;
     height: 32px;
     text-align: left;
-    font:13px/1 "\5fae\8f6f\96c5\9ed1","\5b8b\4f53",
+    font:13px/1 "\5fae\8f6f\96c5\9ed1","\5b8b\4f53";
     line-height: 1.5;
     color: rgba(13,27,62,.65);
     background-color: #fff;
     background-image: none;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    transition: all .3s
+    transition: all .3s;
     vertical-align:top;
 }
 .icon-badge{display:inline-block;line-height:23px;text-indent:0;font-size:12px;margin-right:7px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;padding:0 5px;background-color:#d2eafb;color:#108ee9;}
@@ -709,7 +709,7 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
 }
 .btn_save a{
     padding: 8px 12px 8px 12px;
-    background: #2395f1 url("../images/ic_save.png") no-repeat 10px center/ 20px auto;
+    background: #2395f1 url('../images/ic_save.png') no-repeat 10px center/ 20px auto;
     font-size: 14px;
     border-radius: 4px;
     color: #fff;
