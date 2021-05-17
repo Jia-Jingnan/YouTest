@@ -112,7 +112,7 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
 .handle-top i.icon-doubt:hover{background-image:url(../images/doubt2.png);}
 .ctr-top{margin-left:16px;cursor:pointer;position:relative;}
 .ctr-top:hover .icon-arrow{background:url(../images/arrow2.png) no-repeat 0 0;background-size:10px auto;}
-.ctr-top .header-top{display:block;float:left;width:34px;height:34px;margin-top:11px;background:url(../images/header.png) no-repeat 0 0;border-radius:50%;}
+.ctr-top .header-top{display:block;float:left;width:34px;height:34px;margin-top:11px;background:url(../images/header1.png) no-repeat 0 0;border-radius:50%;}
 .ctr-top .icon-arrow{float:left;width:10px;height:10px;margin:23px 0 0 8px;background:url(../images/arrow1.png) no-repeat 0 0;background-size:10px auto;}
 .ctr-top .ctrlist-top{position:absolute; display:none; left:50%;top:56px;transform:translate(-60%);width:108px;background-color:#32363a;box-shadow: 0 1px 6px rgba(0,0,0,.3)}
 .ctr-top .ctrlist-top a{display:block;height:40px;color:#ccc;line-height:40px;padding-left:40px;}
