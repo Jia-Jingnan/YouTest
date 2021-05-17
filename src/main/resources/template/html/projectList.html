@@ -35,7 +35,7 @@
                     </div>
                     <ul class="ctrlist-top">
                         <li class="pctr-top">
-                            <a href="#">个人中心</a>
+                            <a href="personCenter.html">个人中心</a>
                         </li>
                         <li class="quit-top">
                             <a href="javaScript:logout()">退出</a>
@@ -105,7 +105,7 @@
         window.onresize=function(){
             calcHeight();
         }
-    })
+    });
     //登出的方法
     function logout(){
         let sessionId=$.cookie("sessionId");

@@ -102,7 +102,7 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
 .con-top .logo-top:hover{background:#2395f1 url(../images/logo2.png) no-repeat center center;}
 .con-top .modname-top{color:#fff;font-size:16px;margin-left:16px;}
 .srch-top{margin-top:12px;}
-.srch-top input{display:block;height:18px;line-height:1.5;background:#fff url(../images/srch.png) no-repeat 8px center;background-size:14px auto;padding:6px 9px 6px 28px;border:1px solid transparent;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+.srch-top input{display:block;height:30px;line-height:1.5;background:#fff url(../images/srch.png) no-repeat 8px center;background-size:14px auto;padding:6px 9px 6px 28px;border:1px solid transparent;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
 .handle-top i.icon-top{float:left;display:block;width:16px;height:16px;margin:20px 0 0 16px;background-repeat:no-repeat;background-position:0 0;background-size:16px 16px;}
 .handle-top i.icon-collect{background-image:url(../images/collect1.png);}
 .handle-top i.icon-collect:hover{background-image:url(../images/collect2.png);}
@@ -707,7 +707,8 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
     width: 100%;
     text-align: center;
 }
-.btn_save a{
+.btn_save .btn_save{
+    margin-right: 30%;
     padding: 8px 12px 8px 12px;
     background: #2395f1 url('../images/ic_save.png') no-repeat 10px center/ 20px auto;
     font-size: 14px;
@@ -716,7 +717,7 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
     box-shadow: #eee 0 4px 8px;
 }
 .btn_save a:hover{
-    background-color: #2b78f1;
+    /**background-color: #2b78f1;**/
 }
 .del_box{
     width: 80%;
@@ -735,7 +736,7 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
     float: left;
 }
 .del_btn{
-    float: right;
+    /**float: right;**/
     padding: 8px 12px;
     color: #ff8049;
     border-radius: 4px;

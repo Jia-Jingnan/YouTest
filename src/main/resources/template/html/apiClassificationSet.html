@@ -35,10 +35,10 @@
                 </div>
                 <ul class="ctrlist-top">
                     <li class="pctr-top">
-                        <a href="#">个人中心</a>
+                        <a href="personCenter.html">个人中心</a>
                     </li>
                     <li class="quit-top">
-                        <a href="#">退出</a>
+                        <a href=""javaScript:logout()"">退出</a>
                     </li>
                 </ul>
             </div>
@@ -105,7 +105,7 @@
         calcHeight();
         window.onresize=function(){
             calcHeight();
-        }
+        };
         //更新项目
         $('.btn_save').click(function(){
             let apiClassificationId=sessionStorage.getItem("apiClassificationId");
@@ -130,6 +130,22 @@
             });
 
         });
+        //登出的方法
+        function logout(){
+            let sessionId=$.cookie("sessionId");
+            $.ajax({
+                //将sessionId存放到头部信息中
+                //key要与后端定义头部信息一致
+                headers:{"Authorization":sessionId},
+                url:youtest.config.global.adminUrl+"/user/logout",
+                type:"GET",
+                success:function(ret){
+                    if(ret.status=="1"&&ret.message=="帐号未登陆"){
+                        location.href=youtest.config.global.htmlUrl+"/login.html"
+                    }
+                }
+            });
+        }
 
         
     })
