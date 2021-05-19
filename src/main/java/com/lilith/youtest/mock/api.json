@@ -75,7 +75,12 @@
       "headers": {
         "Content-Type": "text/html;charset=gbk"
       },
-      "text": "I am IronMan!"
+      "json": {
+        "status": 0,
+        "code": "10000",
+        "data": "Stark",
+        "msg": "I am IronMan"
+      }
     }
   },
   {
