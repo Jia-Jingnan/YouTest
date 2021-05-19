@@ -42,7 +42,7 @@ public class ApiController {
 
     @ApiOperation(value = "添加Api方法", httpMethod = "POST")
     @PostMapping("/add")
-    public CommonResult add(Integer apiClassificationId, String apiName, String apiRequestMethod, String apiRequestUrl){
+    public CommonResult add(Integer apiClassificationId, @RequestParam("name") String apiName, @RequestParam("method")String apiRequestMethod, @RequestParam("url")String apiRequestUrl, @RequestParam("description")String apiDescription){
         com.lilith.youtest.entity.Api api = new com.lilith.youtest.entity.Api();
         api.setApiClassificationId(apiClassificationId);
         api.setName(apiName);
