@@ -46,7 +46,7 @@ public class Api implements Serializable {
     private String description;
 
     @ApiModelProperty(value = "创建人")
-    private String createUser;
+    private Integer createUser;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
