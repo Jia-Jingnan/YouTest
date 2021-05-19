@@ -57,7 +57,15 @@ public class ApiController {
 
     }
 
-    //todo 删除接口
+    @ApiOperation(value = "根据ApiId删除接口", httpMethod = "DELETE")
+    @DeleteMapping("/{id}")
+    public CommonResult delete(@PathVariable("id") Integer apiId){
+        if (apiId == null){
+            return new CommonResult("999","接口编号不能为空");
+        }
+        apiService.removeById(apiId);
+        return new CommonResult("1","删除接口成功");
+    }
 
     @ApiOperation(value = "接口运行方法", httpMethod = "POST")
     @PostMapping("/run")
