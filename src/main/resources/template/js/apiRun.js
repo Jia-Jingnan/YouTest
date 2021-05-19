@@ -74,8 +74,8 @@ $('body').on('click','.add-ass',function(){
 })
 $(function(){
 	//共选择的集合
-	var url = youtest.config.global.adminUrl+"/suite/listAll";
-	var projectId=sessionStorage.getItem("projectId")
+	var url = youtest.config.global.adminUrl+"/suite/list";
+	var projectId=sessionStorage.getItem("projectId");
 	let sessionId = $.cookie("sessionId");
 	$.ajax({
 		url:url,
