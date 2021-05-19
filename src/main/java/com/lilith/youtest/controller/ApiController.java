@@ -4,6 +4,7 @@ package com.lilith.youtest.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lilith.youtest.common.CommonResult;
+import com.lilith.youtest.entity.User;
 import com.lilith.youtest.service.ApiRequestParamService;
 import com.lilith.youtest.service.ApiService;
 import com.lilith.youtest.vo.ApiListVO;
@@ -11,10 +12,12 @@ import com.lilith.youtest.vo.ApiResponseVO;
 import com.lilith.youtest.vo.ApiVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.Query;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +39,23 @@ public class ApiController {
     @Autowired
     private ApiRequestParamService apiRequestParamService;
 
-    //todo 添加接口（查询接口分类的name）
+
+    @ApiOperation(value = "添加Api方法", httpMethod = "POST")
+    @PostMapping("/add")
+    public CommonResult add(Integer apiClassificationId, String apiName, String apiRequestMethod, String apiRequestUrl){
+        com.lilith.youtest.entity.Api api = new com.lilith.youtest.entity.Api();
+        api.setApiClassificationId(apiClassificationId);
+        api.setName(apiName);
+        api.setMethod(apiRequestMethod);
+        api.setUrl(apiRequestUrl);
+        User user =(User) SecurityUtils.getSubject().getPrincipal();
+        api.setCreateUser(user.getId());
+        api.setCreateTime(new Date());
+        apiService.save(api);
+        CommonResult result = new CommonResult("1","新增成功");
+        return result;
+
+    }
 
     //todo 删除接口
 
