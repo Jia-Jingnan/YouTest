@@ -196,7 +196,7 @@ $(function(){
 			        	ifViladate = $form.validate('submitValidate');
 					  	if(!ifViladate)return;
 			        	$.ajax({
-							url:youtest.config.global.adminUrl+"/api/addApi",
+							url:youtest.config.global.adminUrl+"/api/add",
 							headers:{"Authorization":sessionId},
 			        		data:$form.serialize(),
 			        		type:'post',
