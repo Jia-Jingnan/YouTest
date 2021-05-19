@@ -2,6 +2,7 @@ package com.lilith.youtest.service;
 
 import com.lilith.youtest.entity.Cases;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lilith.youtest.vo.ApiVO;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CasesService extends IService<Cases> {
 
+    void add(Cases caseVo, ApiVO apiVO);
 }

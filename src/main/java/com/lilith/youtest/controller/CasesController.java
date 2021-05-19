@@ -34,27 +34,11 @@ public class CasesController {
     @Autowired
     private CasesService casesService;
 
-    @Autowired
-    CaseParamValueService caseParamValueService;
-
     @ApiOperation(value = "添加测试集", httpMethod = "POST")
     @PostMapping("/add")
     public CommonResult add(Cases caseVo, ApiVO apiVO){
 
-        // 添加到cases
-        casesService.save(caseVo);
-        //2.批量添加到case_param_value
-        List<ApiRequestParam> requestParamList = apiVO.getRequestParams();
-        List<CaseParamValue> caseParamValueList = new ArrayList<>();
-        for (ApiRequestParam requestParam : requestParamList) {
-            CaseParamValue caseParamValue = new CaseParamValue();
-            caseParamValue.setCaseId(apiVO.getId());
-            caseParamValue.setApiRequestParamId(requestParam.getId());
-            caseParamValue.setApiRequestParamValue(requestParam.getValue());
-            caseParamValueList.add(caseParamValue);
-        }
-
-        caseParamValueService.saveBatch(caseParamValueList);
+        casesService.add(caseVo, apiVO);
         return new CommonResult("1","添加测试集成功");
 
     }
