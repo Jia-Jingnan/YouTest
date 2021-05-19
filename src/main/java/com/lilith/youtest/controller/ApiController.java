@@ -46,7 +46,7 @@ public class ApiController {
         com.lilith.youtest.entity.Api api = new com.lilith.youtest.entity.Api();
         api.setApiClassificationId(apiClassificationId);
         api.setName(apiName);
-        api.setMethod(apiRequestMethod);
+        api.setMethod(apiRequestMethod.toUpperCase());
         api.setUrl(apiRequestUrl);
         User user =(User) SecurityUtils.getSubject().getPrincipal();
         api.setCreateUser(user.getId());
