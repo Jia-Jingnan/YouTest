@@ -81,7 +81,7 @@ $(function(){
 		url:url,
 		headers:{"Authorization":sessionId},
 		data:{"projectId":projectId},
-		type:'post',
+		type:'get',
 		dataType:'json',
 		success:function(ret){
 			if(ret!=null){

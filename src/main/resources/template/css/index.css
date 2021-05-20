@@ -432,7 +432,7 @@ i.icon.icon-delete{background-image:url(../images/delete.png);}
 .sellist-addass{margin:7px 0 16px;}
 .sellist-addass ul{max-height:200px;overflow-y:auto;margin-top:5px;background-color:#eaeaea;}
 .sellist-addass li{padding:7px 0;line-height:20px;}
-.sellist-addass li:hover{background-color:#fa0;}
+.sellist-addass li:hover{background-color: #fffce8;}
 .sellist-addass li.active{background-color:#2395f1;}
 .new-addass{border:1px solid #d9d9d9;}
 .newline-addass{padding:16px;}
