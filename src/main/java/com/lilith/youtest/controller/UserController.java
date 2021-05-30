@@ -35,6 +35,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // todo 增加未登陆状态修改密码，通过回答忘记密码问题
+    // todo 增加登陆状态修改密码的方法， 参考GalaMall中的写法
+
     // 注册方法
     @ApiOperation(value = "注册方法", httpMethod = "POST")
     @PostMapping("register")
