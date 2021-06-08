@@ -37,7 +37,7 @@ public class Cases implements Serializable {
     private String name;
 
     @ApiModelProperty(value = "创建人")
-    private String createUser;
+    private Integer createUser;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
